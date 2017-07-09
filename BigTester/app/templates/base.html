@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    {%block extralink%}
+    {%endblock extralink%}
+    <title>{%block title%}{%endblock title%}</title>
+
+</head>
+<body>
+<a href="#"><span class="glyphicon glyphicon-home"></span></a>
+<span class="glyphicon glyphicon-th-list"></span>
+<a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
+<a href="/"><span class="glyphicon glyphicon-random"></span></a>
+<span class="glyphicon glyphicon-user"></span>
+{%block body%}
+{%endblock body%}
+
+<script src="static/js/bootstrap.js"></script>
+</body>
+</html>

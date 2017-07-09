@@ -1,0 +1,10 @@
+body {
+  background-color: #eee;
+}
+.glyphicon {
+    font-size: 30px;
+}
+
+.glyphicon.glyphicon-user {
+    font-size: 20px;
+}

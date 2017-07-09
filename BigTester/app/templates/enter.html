@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{%block extralink%}
+<link href="static/css/body.css" rel="stylesheet">
+{%endblock extralink%}
+
+{%block title%}Home{%endblock title%}
+
+{%block body%}
+
+{%if data%}
+{{data.user}}</br>
+{%endif%}
+
+
+
+{%endblock body%}
