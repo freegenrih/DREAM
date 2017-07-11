@@ -1,0 +1,58 @@
+{%extends 'base.html'%}
+{%block extralink%}
+{%endblock extralink%}
+{%block title%}Monitoring{%endblock title%}
+
+{%block leftmenu%}
+Monitoring
+{%endblock leftmenu%}
+{%block rightmenu%}
+{%if data%}
+<div class="dataview">
+Kay System: {{data.kay}}</br>
+Chanel 1 :{{data.CH1}}</br>
+Chanel 2 :{{data.CH2}}</br>
+Chanel 3 :{{data.CH3}}</br>
+Chanel 4 :{{data.CH4}}</br>
+Chanel 5 :{{data.CH5}}</br>
+Chanel 6 :{{data.CH6}}</br>
+Chanel 7 :{{data.CH7}}</br>
+Chanel 8 :{{data.CH8}}</br>
+
+{%endif%}
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>ID </th>
+        <th>CH1</th>
+        <th>CH2</th>
+        <th>CH3</th>
+        <th>CH4</th>
+        <th>CH5</th>
+        <th>CH6</th>
+        <th>CH7</th>
+        <th>CH8</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+            <th>20-07-2017</th>
+            <th>{{data.kay}}</th>
+
+            <th>{{data.CH1}}</th>
+            <th>{{data.CH2}}</th>
+            <th>{{data.CH3}}</th>
+            <th>{{data.CH4}}</th>
+            <th>{{data.CH5}}</th>
+            <th>{{data.CH6}}</th>
+            <th>{{data.CH7}}</th>
+            <th>{{data.CH8}}</th>
+
+      </tr>
+    </tbody>
+  </table>
+  </div>
+{%endblock rightmenu%}

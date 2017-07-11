@@ -3,19 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/body.css" rel="stylesheet">
     {%block extralink%}
     {%endblock extralink%}
     <title>{%block title%}{%endblock title%}</title>
 
 </head>
 <body>
-<a href="#"><span class="glyphicon glyphicon-home"></span></a>
-<span class="glyphicon glyphicon-th-list"></span>
-<a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
-<a href="/"><span class="glyphicon glyphicon-random"></span></a>
-<span class="glyphicon glyphicon-user"></span>
-{%block body%}
-{%endblock body%}
+
+
+
+<center>
+    <span class="glyphicon glyphicon-user"></span>USER
+    <a href="/home"><span class="glyphicon glyphicon-home" ></span></a>
+    <a href="/monitoring"><span class="glyphicon glyphicon-th-list"></span></a>
+    <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
+    <a href="/"><span class="glyphicon glyphicon-random"></span></a>
+
+</center>
+
+<div class="wraper" xmlns="http://www.w3.org/1999/html">
+    <div class="left-menu">
+       >
+        {%block leftmenu%}{%endblock leftmenu%}
+    </div>
+
+     <div class="right-menu">
+    {%block rightmenu%}{%endblock rightmenu%}
+     </div>
+</div>
+
 
 <script src="static/js/bootstrap.js"></script>
 </body>

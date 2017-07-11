@@ -8,3 +8,21 @@ body {
 .glyphicon.glyphicon-user {
     font-size: 20px;
 }
+
+.wraper{
+
+
+}
+.left-menu{
+    background-color: red;
+    height: 900px;
+    width: 15%;
+    float:left;
+}
+
+.right-menu{
+
+    height: 900px;
+    width: 85%;
+    float:left;
+}

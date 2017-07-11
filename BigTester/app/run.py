@@ -9,9 +9,34 @@ app = Flask(__name__)
 dates = {}
 
 
-@app.route('/base', methods=['POST', 'GET'])
-def base():
-    return render_template("base.html")
+@app.route('/', methods=['GET', 'POST'])
+def signin():
+    if request.method == 'POST' \
+            and request.form['email'] == 'admin@admin.ru' \
+            and request.form['password'] == 'admin':
+        if request.form['email'] == 'admin@admin.ru':
+            user = 'Gennadyi'
+        else:
+            user = 'None'
+        data = {
+            'user': user,
+            'email': request.form['email'],
+            'password': request.form['password'],
+        }
+        return render_template("home.html", data=data)
+
+    else:
+        return render_template('signin.html')
+
+
+@app.route('/home', methods=['GET'])
+def home():
+    return render_template('home.html')
+
+
+@app.route('/monitoring', methods=['GET'])
+def monitoring():
+    return render_template("monitoring.html", data=dates)
 
 
 @app.route('/monitor', methods=['GET'])
@@ -31,11 +56,9 @@ def monitor():
         }
         global dates
         dates = data
-        # return render_template("monitor.html", data=data)
-
-    else:
-        global dates
         return render_template("monitor.html", data=dates)
+    else:
+        return render_template("monitor.html")
 
 
 @app.route('/settings')
@@ -43,26 +66,8 @@ def settings():
     return render_template("settings.html")
 
 
-@app.route('/', methods=['GET', 'POST'])
-def signin():
-    if request.method == 'POST' \
-            and request.form['email'] == 'admin@admin.ru'\
-            and request.form['password'] == 'admin':
-        if request.form['email'] == 'admin@admin.ru':
-            user ='Gennadyi'
-        else:
-            user='None'
-        data = {
-            'user':user,
-            'email': request.form['email'],
-            'password': request.form['password'],
-        }
-        return render_template("enter.html", data=data)
-
-    else:
-
-        return render_template('signin.html')
-
-
 if __name__ == '__main__':
-    app.run()
+    app.run(
+        host='192.168.100.243',
+        debug=True
+    )
