@@ -15,14 +15,29 @@ body {
 }
 .left-menu{
     background-color: red;
-    height: 900px;
+    height: 700px;
     width: 15%;
     float:left;
+    border-radius:5px;
 }
 
-.right-menu{
+.center-menu{
 
-    height: 900px;
-    width: 85%;
+    height: 700px;
+    width: 70%;
     float:left;
+    border-radius:5px;
+}
+.right-menu{
+  background-color: red;
+    height: 700px;
+    width: 15%;
+    float:left;
+    border-radius:5px;
+}
+#clock{
+
+	color: black;
+	font-weight: bold;
+	font-size: 25px;
 }

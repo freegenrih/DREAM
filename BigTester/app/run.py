@@ -6,7 +6,17 @@ from flask import redirect
 
 app = Flask(__name__)
 
-dates = {}
+dates = {
+    'kay': 'secret',
+    'CH1': 123,
+    'CH2': 456,
+    'CH3': 789,
+    'CH4': 1011,
+    'CH5': 2343,
+    'CH6': 23123,
+    'CH7': 1255,
+    'CH8': 1212,
+}
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -61,13 +71,23 @@ def monitor():
         return render_template("monitor.html")
 
 
-@app.route('/settings')
+@app.route('/settings', methods=['POST', 'GET'])
 def settings():
     return render_template("settings.html")
 
 
+@app.route('/settings-users', methods=['POST'])
+def settings_users():
+    return render_template("settings-users.html")
+
+
+@app.route('/settings-ipsender', methods=['POST'])
+def settings_ipsenders():
+    return render_template("settings-ipsender.html")
+
+
 if __name__ == '__main__':
     app.run(
-        host='192.168.100.243',
+        host='127.0.0.1',
         debug=True
     )

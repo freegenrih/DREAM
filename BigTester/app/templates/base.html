@@ -10,29 +10,58 @@
 
 </head>
 <body>
+<footer class="container-fluid text-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-5">
+            </div>
+            <div class="col-sm-4">
+                <center>
+                    <ul class="nav navbar-nav">
+                        <li><a href="/home"><span class="glyphicon glyphicon-home"></span></a></li>
+                        <li><a href="/monitoring"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                        <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+                        <li><a href="/"><span class="glyphicon glyphicon-random"></span></a></li>
+                    </ul>
+                </center>
+            </div>
+            <div class="col-sm-3"></div>
 
-
-
-<center>
-    <span class="glyphicon glyphicon-user"></span>USER
-    <a href="/home"><span class="glyphicon glyphicon-home" ></span></a>
-    <a href="/monitoring"><span class="glyphicon glyphicon-th-list"></span></a>
-    <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
-    <a href="/"><span class="glyphicon glyphicon-random"></span></a>
-
-</center>
-
-<div class="wraper" xmlns="http://www.w3.org/1999/html">
+        </div>
+    </div>
+</footer>
+<div class="wraper">
     <div class="left-menu">
-       >
+
         {%block leftmenu%}{%endblock leftmenu%}
+
     </div>
 
-     <div class="right-menu">
-    {%block rightmenu%}{%endblock rightmenu%}
-     </div>
+    <div class="center-menu">
+        {%block centermenu%}{%endblock centermenu%}
+
+    </div>
+
+    <div class="right-menu">
+        <center>
+            <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <center><div id="clock"><script src="static/js/time.js"></script></div></center>
+                </div>
+            </div>
+        </div>
+        </center>
+
+        {%block rightmenu%}{%endblock rightmenu%}
+
+    </div>
+
 </div>
 
+<footer class="container-fluid text-center">
+
+</footer>
 
 <script src="static/js/bootstrap.js"></script>
 </body>
