@@ -50,12 +50,14 @@
         </thead>
         <tbody>
         {%if data%}
+        {%for row in data%}
         <tr>
-            <th>1</th>
-            <th>admin@admin.ru</th>
-            <th>Admin</th>
-            <th>Yes</th>
+            <th>{{row['id']}}</th>
+            <th>{{row['email']}}</th>
+            <th>{{row['username']}}</th>
+            <th>{{row['stateadmin']}}</th>
         </tr>
+        {%endfor%}
         {%endif%}
         </tbody>
     </table>

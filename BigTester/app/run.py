@@ -1,8 +1,8 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask import url_for
-from flask import redirect
+
+from sqlrw import full_list_users
 
 app = Flask(__name__)
 
@@ -78,7 +78,9 @@ def settings():
 
 @app.route('/settings-users', methods=['POST'])
 def settings_users():
-    return render_template("settings-users.html")
+    
+    data = full_list_users
+    return render_template("settings-users.html", data=data)
 
 
 @app.route('/settings-ipsender', methods=['POST'])
@@ -87,7 +89,4 @@ def settings_ipsenders():
 
 
 if __name__ == '__main__':
-    app.run(
-        host='127.0.0.1',
-        debug=True
-    )
+    app.run(host='127.0.0.1', debug=True)
