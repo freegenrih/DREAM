@@ -1,40 +1,70 @@
+import pymysql.cursors
 
 
-# Connect to the database
-from settings import connection
-'''
-try:
-    with connection.cursor() as cursor:
-        # Create a new record
-        sql = "INSERT INTO `Users` (`username`,`email`, `password`, `stateadmin`) " \
-              "VALUES ('NewsUser1', 'webmaster@python.org', 'very-secret', '0')"
-        cursor.execute(sql)
-        print('OK')
-
-    # connection is not autocommit by default. So you must commit to save
-    # your changes.
-    connection.commit()
-
-    with connection.cursor() as cursor:
-        # Read a single record
-        sql = "SELECT * FROM `Users` "
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        print(result)
-finally:
-    connection.close()
-'''
 
 def list_users():
     try:
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='GHRRich',
+                                     db='BigTester',
+                                     charset='utf8mb4',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
         with connection.cursor() as cursor:
             # Read a single record
             sql = "SELECT * FROM `Users` "
             cursor.execute(sql)
             result = cursor.fetchall()
+            print('read Users')
+
             return result
     finally:
         connection.close()
 
 
-full_list_users = list_users()
+def crt_users(username, email, password, stateadmin):
+    try:
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='GHRRich',
+                                     db='BigTester',
+                                     charset='utf8mb4',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "INSERT INTO `Users` (`username`,`email`, `password`, `stateadmin`) " \
+                  "VALUES ('{}','{}','{}','{}')".format(str(username), str(email), str(password), int(stateadmin))
+            cursor.execute(sql)
+
+            print('Create Users')
+
+        # connection is not autocommit by default. So you must commit to save
+        # your changes.
+        connection.commit()
+    finally:
+        connection.close()
+
+
+def delet_users(iduser):
+    try:
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='GHRRich',
+                                     db='BigTester',
+                                     charset='utf8mb4',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "DELETE FROM `Users` WHERE `Users`.`id` = {}".format(iduser)
+            cursor.execute(sql)
+
+            print('Create Users')
+
+        # connection is not autocommit by default. So you must commit to save
+        # your changes.
+        connection.commit()
+    finally:
+        connection.close()

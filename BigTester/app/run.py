@@ -1,8 +1,11 @@
 from flask import Flask
 from flask import render_template
+from flask import redirect
+from flask import url_for
 from flask import request
 
-from sqlrw import full_list_users
+from sqlrw import list_users, crt_users, delet_users
+from RegUsers import RegUsersForm
 
 app = Flask(__name__)
 
@@ -49,6 +52,16 @@ def monitoring():
     return render_template("monitoring.html", data=dates)
 
 
+@app.route('/monitoring-online', methods=['GET'])
+def monitoring_online():
+    return render_template("monitoring-online.html", data=dates)
+
+
+@app.route('/monitoring-database', methods=['GET'])
+def monitoring_database():
+    return render_template("monitoring-database.html", data=dates)
+
+
 @app.route('/monitor', methods=['GET'])
 def monitor():
     if request.method == 'GET' and request.args['key'] == 'yyy':
@@ -76,17 +89,38 @@ def settings():
     return render_template("settings.html")
 
 
-@app.route('/settings-users', methods=['POST'])
+@app.route('/settings-users', methods=['POST', 'GET'])
 def settings_users():
-    
-    data = full_list_users
-    return render_template("settings-users.html", data=data)
+    if request.method == 'POST':
+        if request.form['submit'] == '          RegisterUser           ':
+            reg_form = RegUsersForm(request.form['email'],
+                                    request.form['username'],
+                                    request.form['password'],
+                                    request.form['re_password']
+                                    )
+            reg_form.writeusers()
+            data = list_users()
+            errors = reg_form.errors()
+            return render_template("settings-users.html", data=data, errors=errors)
+
+        elif request.form['submit'] == '           DeleteUser            ' and request.form['iduser'] != '':
+
+            delet_users(request.form['iduser'])
+            data = list_users()
+            return render_template("settings-users.html", data=data)
+        else:
+            data = list_users()
+            return render_template("settings-users.html", data=data)
+
+    else:
+        data = list_users()
+        return render_template("settings-users.html", data=data)
 
 
-@app.route('/settings-ipsender', methods=['POST'])
+@app.route('/settings-ipsender', methods=['POST', 'GET'])
 def settings_ipsenders():
     return render_template("settings-ipsender.html")
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', debug=True)
+    app.run(debug=True)
