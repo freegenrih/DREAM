@@ -1,6 +1,10 @@
 import re
+from sqlrw import crt_users
+
+
 class RegUsersForm:
     error_forms = {}
+    stateadmin = 1
 
     def __init__(self, email: str, username: str, password: str, re_password: str):
         self.email = email
@@ -9,14 +13,14 @@ class RegUsersForm:
         self.re_password = re_password
 
         if self.password != self.re_password \
-                or re.match('<script', self.password) != None\
+                or re.match('<script', self.password) != None \
                 or len(self.password) > 10 \
                 or len(self.password) < 5:
             password_error = {'password': 'No confirm password'}
             self.error_forms.update(password_error)
 
         if len(self.username) < 4 \
-                or len(self.username) > 15\
+                or len(self.username) > 15 \
                 or re.search(r'[!?<:>/]', self.username) != None \
                 or re.match('<script', self.username) != None:
             password_error = {
@@ -33,13 +37,11 @@ class RegUsersForm:
             self.error_forms.update(password_error)
 
     def writeusers(self):
-        if len(self.error_forms)== 0:
+        if len(self.error_forms) == 0:
+            crt_users(self.username, self.email, self.password, self.stateadmin)
             return print('write to base data')
         else:
             return print('no write to base data')
 
     def errors(self):
         return self.error_forms
-
-
-
