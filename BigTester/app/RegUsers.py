@@ -1,5 +1,5 @@
 import re
-from sqlrw import crt_users, list_users
+from sqlrw import crt_users, get_users
 
 
 class RegUsersForm:
@@ -10,6 +10,7 @@ class RegUsersForm:
         self.re_password = re_password
         self.stateadmin = stateadmin
         self.error_forms = {}
+        self.sql = "SELECT `email` FROM `Users` WHERE `email`='{}' ".format(self.email)
 
         if self.password != self.re_password \
                 or re.match('<script', self.password) != None \
@@ -33,6 +34,12 @@ class RegUsersForm:
                 or re.match('<script', self.email) != None:
             password_error = {
                 'email': 'No  correct email '}
+            self.error_forms.update(password_error)
+
+        if get_users(self.sql, self.email) == True:
+            password_error = {
+                'emailbd': 'Such an email is in the database'
+            }
             self.error_forms.update(password_error)
 
     def writeusers(self):

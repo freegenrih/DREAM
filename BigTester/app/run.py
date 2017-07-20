@@ -102,9 +102,9 @@ def settings_users():
             errors = reg_form.errors()
             return render_template("settings-users.html", data=data, errors=errors)
 
-        elif request.form['submit'] == '           DeleteUser            ' and request.form['iduser'] != '':
+        elif request.form['submit'] == '           DeleteUser            ' and request.form['email'] != '':
 
-            delet_users(request.form['iduser'])
+            delet_users(request.form['email'])
             data = list_users()
             return render_template("settings-users.html", data=data)
         else:

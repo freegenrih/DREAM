@@ -27,54 +27,56 @@
             </form>
 
         </div>
-        <div class="col-xs-2" id="errors" ">
+        <div class="col-xs-2" id="errors"
+        ">
         <center><h4 style="color: red">Errors:</h4></center>
-            {%if errors%}
-                <ul>
-                {%if errors.username%}
-                <li><a style="color:red;">{{errors.username}}</a></br></li>
-                {%endif%}
-                {%if errors.email%}
-                <li><a style="color:red;">{{errors.email}}</a></br></li>
-                {%endif%}
-                {%if errors.password%}
-                <li><a style="color:red;">{{errors.password}}</a></li>
-                {%endif%}
-                </ul>
+        {%if errors%}
+        <ul>
+            {%if errors.username%}
+            <li><a style="color:red;">{{errors.username}}</a></br></li>
             {%endif%}
-        </div>
-        <div class="col-xs-2">
-            <form method="post" action="">
-                <input type="text" name="username" placeholder="Username" required></br>
-                <input type="password" name="old_password" placeholder="Old Password" required></br>
-                <input type="password" name="newpassword" placeholder="New Password" required></br>
-                <input type="password" name="re_newpassword" placeholder="Repeat New Password" required></br>
-                <input type="submit" name="submit" value="      Update Password       ">
-            </form>
-        </div>
-        <div class="col-xs-2" id="errors" ">
-            <center><h4 style="color: red">Errors:</h4></center>
-
-        </div>
-        <div class="col-sm-2">
-            <form method="post" action="/settings-users">
-                <input type="text" name="iduser" placeholder="ID Users" required></br>
-                <input type="password" name="old_password" placeholder="Admin Password" required></br>
-                <input type="password" name="newpassword" placeholder="Return Password" required></br>
-
-                <input type="submit" name="submit" value="           DeleteUser            ">
-            </form>
-        </div>
-        <div class="col-xs-2" id="errors" ">
-            <center><h4 style="color: red">Errors:</h4></center>
-
-        </div>
-
+            {%if errors.email%}
+            <li><a style="color:red;">{{errors.email}}</a></br></li>
+            {%endif%}
+            {%if errors.emailbd%}
+            <li><a style="color:red;">{{errors.emailbd}}</a></br></li>
+            {%endif%}
+            {%if errors.password%}
+            <li><a style="color:red;">{{errors.password}}</a></li>
+            {%endif%}
+        </ul>
+        {%endif%}
     </div>
+    <div class="col-xs-2">
+        <form method="post" action="">
+            <input type="text" name="username" placeholder="Username" required></br>
+            <input type="password" name="old_password" placeholder="Old Password" required></br>
+            <input type="password" name="newpassword" placeholder="New Password" required></br>
+            <input type="password" name="re_newpassword" placeholder="Repeat New Password" required></br>
+            <input type="submit" name="submit" value="      Update Password       ">
+        </form>
+    </div>
+    <div class="col-xs-2" id="errors">
+        <center><h4 style="color: red">Errors:</h4></center>
+    </div>
+    <div class="col-sm-2">
+        <form method="post" action="/settings-users">
+            <input type="email" name="email" placeholder="Email Users" required></br>
+            <input type="password" name="old_password" placeholder="Admin Password" required></br>
+            <input type="password" name="newpassword" placeholder="Return Password" required></br>
+
+            <input type="submit" name="submit" value="           DeleteUser            ">
+        </form>
+    </div>
+    <div class="col-xs-2" id="errors">
+        <center><h4 style="color: red">Errors:</h4></center>
+    </div>
+
+</div>
 </div>
 
-<div class="col-xs-12" >
-    <center class="table" ></center>
+<div class="col-xs-12">
+    <center class="table"></center>
     <div class="table-responsive">
         <table class="table" style="height: 100%;width: 100%;">
             <thead>
