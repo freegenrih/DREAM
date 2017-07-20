@@ -1,16 +1,15 @@
 import re
-from sqlrw import crt_users
+from sqlrw import crt_users, list_users
 
 
 class RegUsersForm:
-    error_forms = {}
-    stateadmin = 1
-
-    def __init__(self, email: str, username: str, password: str, re_password: str):
+    def __init__(self, email: str, username: str, password: str, re_password: str, stateadmin: int):
         self.email = email
         self.username = username
         self.password = password
         self.re_password = re_password
+        self.stateadmin = stateadmin
+        self.error_forms = {}
 
         if self.password != self.re_password \
                 or re.match('<script', self.password) != None \
@@ -41,7 +40,7 @@ class RegUsersForm:
             crt_users(self.username, self.email, self.password, self.stateadmin)
             return print('write to base data')
         else:
-            return print('no write to base data')
+            return print('no write to base data', self.error_forms)
 
     def errors(self):
         return self.error_forms

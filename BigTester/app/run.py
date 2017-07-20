@@ -27,16 +27,8 @@ def signin():
     if request.method == 'POST' \
             and request.form['email'] == 'admin@admin.ru' \
             and request.form['password'] == 'admin':
-        if request.form['email'] == 'admin@admin.ru':
-            user = 'Gennadyi'
-        else:
-            user = 'None'
-        data = {
-            'user': user,
-            'email': request.form['email'],
-            'password': request.form['password'],
-        }
-        return render_template("home.html", data=data)
+
+        return render_template("home.html")
 
     else:
         return render_template('signin.html')
@@ -93,10 +85,17 @@ def settings():
 def settings_users():
     if request.method == 'POST':
         if request.form['submit'] == '          RegisterUser           ':
+            if request.form['stateadmin'] == 'on':
+                stateadmin = 1
+            else:
+                stateadmin = 0
+
+            print('stateadmin', stateadmin)
             reg_form = RegUsersForm(request.form['email'],
                                     request.form['username'],
                                     request.form['password'],
-                                    request.form['re_password']
+                                    request.form['re_password'],
+                                    stateadmin
                                     )
             reg_form.writeusers()
             data = list_users()

@@ -61,7 +61,7 @@ def delet_users(iduser):
             sql = "DELETE FROM `Users` WHERE `Users`.`id` = {}".format(iduser)
             cursor.execute(sql)
 
-            print('Create Users')
+            print('Delete Users')
 
         # connection is not autocommit by default. So you must commit to save
         # your changes.
