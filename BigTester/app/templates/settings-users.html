@@ -10,96 +10,90 @@
 {%include 'left-settings-menus.html'%}
 {%endblock leftmenu%}
 {%block centermenu%}
-</br>
+<br>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-2">
             <form method="post" action="/settings-users">
-                <input type="email" name="email" placeholder="Email" required></br>
-                <input type="text" name="username" placeholder="Username" required></br>
-                <input type="password" name="password" placeholder="Password" required></br>
-                <input type="password" name="re_password" placeholder="RepeatPassword" required></br>
                 <input type="radio" name="stateadmin" value="off"> User Group<Br>
                 <input type="radio" name="stateadmin" value="on"> Admin Group<Br>
-                <input type="submit" name="submit" value="          RegisterUser           "></br>
-
+                <input type="email" name="email" placeholder="Email" required><br>
+                <input type="text" name="username" placeholder="Username" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <input type="password" name="re_password" placeholder="RepeatPassword" required><br>
+                <input type="submit" name="submit" value="          RegisterUser           "><br>
             </form>
-
         </div>
-        <div class="col-xs-2" id="errors"
-        ">
-        <center><h4 style="color: red">Errors:</h4></center>
-        {%if errors%}
-        <ul>
-            {%if errors.username%}
-            <li><a style="color:red;">{{errors.username}}</a></br></li>
+        <div class="col-xs-2" id="errors">
+            <center><h4 style="color: red">Errors:</h4></center>
+            {%if errors%}
+            <ul>
+                {%if errors.username%}
+                <li><a style="color:red;">{{errors.username}}</a><br></li>
+                {%endif%}
+                {%if errors.email%}
+                <li><a style="color:red;">{{errors.email}}</a><br></li>
+                {%endif%}
+                {%if errors.emailbd%}
+                <li><a style="color:red;">{{errors.emailbd}}</a><br></li>
+                {%endif%}
+                {%if errors.password%}
+                <li><a style="color:red;">{{errors.password}}</a></li>
+                {%endif%}
+            </ul>
             {%endif%}
-            {%if errors.email%}
-            <li><a style="color:red;">{{errors.email}}</a></br></li>
-            {%endif%}
-            {%if errors.emailbd%}
-            <li><a style="color:red;">{{errors.emailbd}}</a></br></li>
-            {%endif%}
-            {%if errors.password%}
-            <li><a style="color:red;">{{errors.password}}</a></li>
-            {%endif%}
-        </ul>
-        {%endif%}
+        </div>
+        <div class="col-xs-2">
+            <form method="post" action="">
+                <input type="text" name="username" placeholder="Username" required><br>
+                <input type="password" name="old_password" placeholder="Old Password" required><br>
+                <input type="password" name="newpassword" placeholder="New Password" required><br>
+                <input type="password" name="re_newpassword" placeholder="Repeat New Password" required><br>
+                <input type="submit" name="submit" value="      Update Password       ">
+            </form>
+        </div>
+        <div class="col-xs-2" id="errors">
+            <center><h4 style="color: red">Errors:</h4></center>
+        </div>
+        <div class="col-sm-2">
+            <form method="post" action="/settings-users">
+                <input type="email" name="email" placeholder="Email Users" required><br>
+                <input type="password" name="old_password" placeholder="Admin Password" required><br>
+                <input type="password" name="newpassword" placeholder="Return Password" required><br>
+                <input type="submit" name="submit" value="           DeleteUser            ">
+            </form>
+        </div>
+        <div class="col-xs-2" id="errors">
+            <center><h4 style="color: red">Errors:</h4></center>
+        </div>
     </div>
-    <div class="col-xs-2">
-        <form method="post" action="">
-            <input type="text" name="username" placeholder="Username" required></br>
-            <input type="password" name="old_password" placeholder="Old Password" required></br>
-            <input type="password" name="newpassword" placeholder="New Password" required></br>
-            <input type="password" name="re_newpassword" placeholder="Repeat New Password" required></br>
-            <input type="submit" name="submit" value="      Update Password       ">
-        </form>
-    </div>
-    <div class="col-xs-2" id="errors">
-        <center><h4 style="color: red">Errors:</h4></center>
-    </div>
-    <div class="col-sm-2">
-        <form method="post" action="/settings-users">
-            <input type="email" name="email" placeholder="Email Users" required></br>
-            <input type="password" name="old_password" placeholder="Admin Password" required></br>
-            <input type="password" name="newpassword" placeholder="Return Password" required></br>
-
-            <input type="submit" name="submit" value="           DeleteUser            ">
-        </form>
-    </div>
-    <div class="col-xs-2" id="errors">
-        <center><h4 style="color: red">Errors:</h4></center>
-    </div>
-
-</div>
 </div>
 
-<div class="col-xs-12">
-    <center class="table"></center>
-    <div class="table-responsive">
-        <table class="table" style="height: 100%;width: 100%;">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>User Name</th>
-                <th>Admin</th>
-            </tr>
-            </thead>
-            <tbody>
-            {%if data%}
-            {%for row in data%}
-            <tr>
-                <th>{{row['id']}}</th>
-                <th>{{row['email']}}</th>
-                <th>{{row['username']}}</th>
-                <th>{{row['stateadmin']}}</th>
-            </tr>
-            {%endfor%}
-            {%endif%}
-            </tbody>
-        </table>
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table" style="height: 100%;width: 100%;">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>User Name</th>
+                    <th>Admin</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%if data%}
+                {%for row in data%}
+                <tr>
+                    <th>{{row['id']}}</th>
+                    <th>{{row['email']}}</th>
+                    <th>{{row['username']}}</th>
+                    <th>{{row['stateadmin']}}</th>
+                </tr>
+                {%endfor%}
+                {%endif%}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-{%endblock centermenu%}
+    {%endblock centermenu%}

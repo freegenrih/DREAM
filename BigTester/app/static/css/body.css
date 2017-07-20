@@ -16,7 +16,7 @@ body {
 .left-menu{
     background-color: #779AEA;
     height: 700px;
-    width: 15%;
+    width: 10%;
     float:left;
     border-radius:5px;
 }
@@ -24,7 +24,7 @@ body {
 .center-menu{
     background-color: #C1CEEA;
     height: 700px;
-    width: 75%;
+    width: 80%;
     float:left;
     border-radius:5px;
 }
@@ -43,6 +43,7 @@ body {
 }
 
 #errors{
+
     border-color:red;
     border-style: solid;
     height: 100%;
