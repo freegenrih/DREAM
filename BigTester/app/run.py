@@ -4,8 +4,8 @@ from flask import redirect
 from flask import url_for
 from flask import request
 
-from sqlrw import list_users, crt_users, delet_users
-from RegUsers import RegUsersForm
+from sqlrw import list_users, crt_users, delet_users, update_users_password
+from RegUsers import RegUsersForm , UpdateUsersForm
 
 app = Flask(__name__)
 
@@ -85,28 +85,48 @@ def settings():
 def settings_users():
     if request.method == 'POST':
         if request.form['submit'] == '          RegisterUser           ':
-            if request.form['stateadmin'] == 'on':
-                stateadmin = 1
+            if request.form['statusadmin'] == 'Admin':
+                statusadmin = 1
             else:
-                stateadmin = 0
+                statusadmin = 0
 
-            print('stateadmin', stateadmin)
+            print('statusadmin', statusadmin)
             reg_form = RegUsersForm(request.form['email'],
                                     request.form['username'],
                                     request.form['password'],
                                     request.form['re_password'],
-                                    stateadmin
+                                    statusadmin
                                     )
-            reg_form.writeusers()
+            reg_form.write_users()
             data = list_users()
             errors = reg_form.errors()
             return render_template("settings-users.html", data=data, errors=errors)
 
         elif request.form['submit'] == '           DeleteUser            ' and request.form['email'] != '':
+            if request.form['password'] == request.form['re_password']:
+                delet_users(request.form['email'])
+                data = list_users()
+                return render_template("settings-users.html", data=data)
+            else:
+                data = list_users()
+                errors_delete = {
+                    'password': 'no password in bd'
+                }
+                return render_template("settings-users.html", data=data, errors_delete=errors_delete)
 
-            delet_users(request.form['email'])
+        elif request.form['submit'] == '      Update Password       ' and request.form['email'] != '':
+
+            update_form = UpdateUsersForm(request.form['email'],
+                                    request.form['username'],
+                                    request.form['old_password'],
+                                    request.form['newpassword'],
+                                    request.form['re_newpassword'],
+                                    )
+            update_form.update_users()
             data = list_users()
             return render_template("settings-users.html", data=data)
+
+
         else:
             data = list_users()
             return render_template("settings-users.html", data=data)

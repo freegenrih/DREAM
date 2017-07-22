@@ -1,14 +1,14 @@
 import re
-from sqlrw import crt_users, get_users
+from sqlrw import crt_users, get_users, update_users_password, delet_users
 
 
 class RegUsersForm:
-    def __init__(self, email: str, username: str, password: str, re_password: str, stateadmin: int):
+    def __init__(self, email: str, username: str, password: str, re_password: str, statusadmin: int):
         self.email = email
         self.username = username
         self.password = password
         self.re_password = re_password
-        self.stateadmin = stateadmin
+        self.statusadmin = statusadmin
         self.error_forms = {}
         self.sql = "SELECT `email` FROM `Users` WHERE `email`='{}' ".format(self.email)
 
@@ -42,12 +42,32 @@ class RegUsersForm:
             }
             self.error_forms.update(password_error)
 
-    def writeusers(self):
+    def write_users(self):
         if len(self.error_forms) == 0:
-            crt_users(self.username, self.email, self.password, self.stateadmin)
+            crt_users(self.username, self.email, self.password, self.statusadmin)
             return print('write to base data')
         else:
             return print('no write to base data', self.error_forms)
 
     def errors(self):
         return self.error_forms
+
+
+class UpdateUsersForm:
+    def __init__(self, email: str, username: str, old_password: str, new_password: str, re_newpassword: str):
+        self.email = email
+        self.username = username
+        self.old_password = old_password
+        self.new_password = new_password
+        self.re_newpassword = re_newpassword
+        self.error_forms = {}
+        self.sql = "UPDATE `Users`SET `password` = '{}' WHERE `Users`.`email` = '{}'"\
+            .format(self.new_password, self.email)
+
+    def update_users(self):
+        update_users_password(self.sql)
+
+
+
+class DeleteUsersForm:
+    pass

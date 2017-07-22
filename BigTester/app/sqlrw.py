@@ -2,6 +2,7 @@ import pymysql.cursors
 
 
 def list_users():
+    '''read all users'''
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
@@ -22,7 +23,8 @@ def list_users():
         connection.close()
 
 
-def crt_users(username, email, password, stateadmin):
+def crt_users(username, email, password, statusadmin):
+    '''create users'''
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
@@ -33,8 +35,8 @@ def crt_users(username, email, password, stateadmin):
 
         with connection.cursor() as cursor:
             # Create a new record
-            sql = "INSERT INTO `Users` (`username`,`email`, `password`, `stateadmin`) " \
-                  "VALUES ('{}','{}','{}','{}')".format(str(username), str(email), str(password), int(stateadmin))
+            sql = "INSERT INTO `Users` (`username`,`email`, `password`, `statusadmin`) " \
+                  "VALUES ('{}','{}','{}','{}')".format(str(username), str(email), str(password), int(statusadmin))
             cursor.execute(sql)
 
             print('Create Users')
@@ -47,6 +49,7 @@ def crt_users(username, email, password, stateadmin):
 
 
 def delet_users(email):
+    '''delete users for email'''
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
@@ -70,6 +73,7 @@ def delet_users(email):
 
 
 def get_users(sql, email):
+    ''' checked users for email'''
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
@@ -93,5 +97,27 @@ def get_users(sql, email):
         connection.close()
 
 
+def update_users_password(sql):
+    '''update users password'''
+    try:
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='GHRRich',
+                                     db='BigTester',
+                                     charset='utf8mb4',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
+        with connection.cursor() as cursor:
+            # Read a single record
+
+            cursor.execute(sql)
+        connection.commit()
+    finally:
+        connection.close()
+
+
 if __name__ == '__main__':
-    get_users(sql, 'admin@admin.ru')
+    new_password = 'new_password'
+    email = 'admins@admins.ru'
+
+    update_users_password(new_password, email)
