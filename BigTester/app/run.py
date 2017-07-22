@@ -4,8 +4,21 @@ from flask import redirect
 from flask import url_for
 from flask import request
 
-from sqlrw import list_users, crt_users, delet_users, update_users_password
-from RegUsers import RegUsersForm , UpdateUsersForm
+from sqlrw import list_users
+from RegUsers import (RegUsersForm,
+                      UpdateUsersForm,
+                      DeleteUsersForm
+                      )
+
+
+def get_user(errors=None):
+    data = list_users()
+    if errors != None:
+        return render_template("settings-users.html", data=data, errors=errors)
+
+    else:
+        return render_template("settings-users.html", data=data)
+
 
 app = Flask(__name__)
 
@@ -98,42 +111,40 @@ def settings_users():
                                     statusadmin
                                     )
             reg_form.write_users()
-            data = list_users()
             errors = reg_form.errors()
-            return render_template("settings-users.html", data=data, errors=errors)
+            # return render_template("settings-users.html", data=data, errors=errors)
+            return get_user(errors)
+
 
         elif request.form['submit'] == '           DeleteUser            ' and request.form['email'] != '':
             if request.form['password'] == request.form['re_password']:
-                delet_users(request.form['email'])
-                data = list_users()
-                return render_template("settings-users.html", data=data)
+                del_form = DeleteUsersForm(request.form['email'],
+                                           request.form['password'],
+                                           request.form['re_password'],
+                                           )
+                del_form.delete_users()
+                return get_user()
+
             else:
-                data = list_users()
-                errors_delete = {
-                    'password': 'no password in bd'
-                }
-                return render_template("settings-users.html", data=data, errors_delete=errors_delete)
+                return get_user()
 
         elif request.form['submit'] == '      Update Password       ' and request.form['email'] != '':
 
             update_form = UpdateUsersForm(request.form['email'],
-                                    request.form['username'],
-                                    request.form['old_password'],
-                                    request.form['newpassword'],
-                                    request.form['re_newpassword'],
-                                    )
+                                          request.form['username'],
+                                          request.form['old_password'],
+                                          request.form['newpassword'],
+                                          request.form['re_newpassword'],
+                                          )
             update_form.update_users()
-            data = list_users()
-            return render_template("settings-users.html", data=data)
 
+            return get_user()
 
         else:
-            data = list_users()
-            return render_template("settings-users.html", data=data)
+            return get_user()
 
     else:
-        data = list_users()
-        return render_template("settings-users.html", data=data)
+        return get_user()
 
 
 @app.route('/settings-ipsender', methods=['POST', 'GET'])

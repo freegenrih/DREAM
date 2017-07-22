@@ -48,30 +48,6 @@ def crt_users(username, email, password, statusadmin):
         connection.close()
 
 
-def delet_users(email):
-    '''delete users for email'''
-    try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='GHRRich',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
-
-        with connection.cursor() as cursor:
-            # Create a new record
-            sql = "DELETE FROM `Users` WHERE `Users`.`email` = '{}'".format(email)
-            cursor.execute(sql)
-
-            print('Delete Users')
-
-        # connection is not autocommit by default. So you must commit to save
-        # your changes.
-        connection.commit()
-    finally:
-        connection.close()
-
-
 def get_users(sql, email):
     ''' checked users for email'''
     try:
@@ -97,8 +73,8 @@ def get_users(sql, email):
         connection.close()
 
 
-def update_users_password(sql):
-    '''update users password'''
+def up_del_users(sql):
+    '''update users password and delete users '''
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',

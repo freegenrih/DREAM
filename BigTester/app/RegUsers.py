@@ -1,5 +1,8 @@
 import re
-from sqlrw import crt_users, get_users, update_users_password, delet_users
+from sqlrw import (crt_users,
+                   get_users,
+                   up_del_users
+                   )
 
 
 class RegUsersForm:
@@ -60,14 +63,21 @@ class UpdateUsersForm:
         self.old_password = old_password
         self.new_password = new_password
         self.re_newpassword = re_newpassword
-        self.error_forms = {}
-        self.sql = "UPDATE `Users`SET `password` = '{}' WHERE `Users`.`email` = '{}'"\
+        self.error_update = {}
+        self.sql = "UPDATE `Users`SET `password` = '{}' WHERE `Users`.`email` = '{}'" \
             .format(self.new_password, self.email)
 
     def update_users(self):
-        update_users_password(self.sql)
-
+        up_del_users(self.sql)
 
 
 class DeleteUsersForm:
-    pass
+    def __init__(self, email: str, password: str, re_password: str):
+        self.email = email
+        self.password = password
+        self.re_password = re_password
+        self.error_delete = {}
+        self.sql = "DELETE FROM `Users` WHERE `Users`.`email` = '{}'".format(self.email)
+
+    def delete_users(self):
+        up_del_users(self.sql)
