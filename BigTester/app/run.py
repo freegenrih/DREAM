@@ -1,13 +1,11 @@
 from flask import Flask
 from flask import render_template
-from flask import redirect
-from flask import url_for
 from flask import request
 
 from sqlrw import list_users
 from RegUsers import (RegUsersForm,
                       UpdateUsersForm,
-                      DeleteUsersForm
+                      DeleteUsersForm,
                       )
 
 
@@ -40,7 +38,6 @@ def signin():
     if request.method == 'POST' \
             and request.form['email'] == 'admin@admin.ru' \
             and request.form['password'] == 'admin':
-
         return render_template("home.html")
 
     else:
@@ -54,7 +51,7 @@ def home():
 
 @app.route('/monitoring', methods=['GET'])
 def monitoring():
-    return render_template("monitoring.html", data=dates)
+    return render_template("monitoring.html")
 
 
 @app.route('/monitoring-online', methods=['GET'])
@@ -112,7 +109,6 @@ def settings_users():
                                     )
             reg_form.write_users()
             errors = reg_form.errors()
-            # return render_template("settings-users.html", data=data, errors=errors)
             return get_user(errors)
 
 
@@ -129,7 +125,6 @@ def settings_users():
                 return get_user()
 
         elif request.form['submit'] == '      Update Password       ' and request.form['email'] != '':
-
             update_form = UpdateUsersForm(request.form['email'],
                                           request.form['username'],
                                           request.form['old_password'],
@@ -137,7 +132,6 @@ def settings_users():
                                           request.form['re_newpassword'],
                                           )
             update_form.update_users()
-
             return get_user()
 
         else:

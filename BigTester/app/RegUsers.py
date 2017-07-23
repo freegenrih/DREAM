@@ -25,7 +25,7 @@ class RegUsersForm:
         if len(self.username) < 4 \
                 or len(self.username) > 15 \
                 or re.search(r'[!?<:>/]', self.username) != None \
-                or re.match('<script', self.username) != None:
+                or re.match(r'<script', self.username) != None:
             password_error = {
                 'username': 'The length of the username must be at least 4 characters and not more than 15'}
             self.error_forms.update(password_error)
@@ -34,7 +34,7 @@ class RegUsersForm:
                 or self.email.find('@') == -1 \
                 or len(self.email) == 0 \
                 or re.search(r'[!?<:>/]', self.email) != None \
-                or re.match('<script', self.email) != None:
+                or re.match(r'<script', self.email) != None:
             password_error = {
                 'email': 'No  correct email '}
             self.error_forms.update(password_error)
@@ -67,8 +67,40 @@ class UpdateUsersForm:
         self.sql = "UPDATE `Users`SET `password` = '{}' WHERE `Users`.`email` = '{}'" \
             .format(self.new_password, self.email)
 
+        if self.new_password != self.re_newpassword \
+                or re.match('<script', self.new_password) != None \
+                or re.match('<script', self.re_newpassword) != None \
+                or len(self.old_password) > 10 \
+                or len(self.old_password) < 5:
+            password_error = {'password': 'No confirm password'}
+            self.error_update.update(password_error)
+
+        if len(self.username) < 4 \
+                or len(self.username) > 15 \
+                or re.search(r'[!?<:>/]', self.username) != None \
+                or re.match(r'<script', self.username) != None:
+            password_error = {
+                'username': 'The length of the username must be at least 4 characters and not more than 15'}
+            self.error_update.update(password_error)
+
+        if len(self.email) > 64 \
+                or self.email.find('@') == -1 \
+                or len(self.email) == 0 \
+                or re.search(r'[!?<:>/]', self.email) != None \
+                or re.match(r'<script', self.email) != None:
+            password_error = {
+                'email': 'No  correct email '}
+            self.error_update.update(password_error)
+
     def update_users(self):
-        up_del_users(self.sql)
+        if len(self.error_update) == 0:
+            up_del_users(self.sql)
+            return print('update info to users')
+        else:
+            return print('no update users to base data', self.error_update)
+
+    def errors_update(self):
+        return self.error_update
 
 
 class DeleteUsersForm:
@@ -81,3 +113,6 @@ class DeleteUsersForm:
 
     def delete_users(self):
         up_del_users(self.sql)
+
+    def errors_delete(self):
+        return self.error_delete
