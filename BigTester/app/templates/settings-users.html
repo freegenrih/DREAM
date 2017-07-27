@@ -66,6 +66,9 @@
                 {%if errors_edit.password%}
                 <li><a style="color:red;">{{errors_edit.password}}</a><br></li>
                 {%endif%}
+                {%if errors_edit.username%}
+                <li><a style="color:red;">{{errors_edit.username}}</a><br></li>
+                {%endif%}
             </ul>
             {%endif%}
         </div>
@@ -98,6 +101,7 @@
                 <th>ID</th>
                 <th>Email</th>
                 <th>User Name</th>
+                <th>Password</th>
                 <th>Admin</th>
             </tr>
             </thead>
@@ -108,6 +112,7 @@
                 <th>{{row['id']}}</th>
                 <th>{{row['email']}}</th>
                 <th>{{row['username']}}</th>
+                <th>{{row['password']}}</th>
                 <th>{{row['statusadmin']}}</th>
             </tr>
             {%endfor%}

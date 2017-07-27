@@ -92,8 +92,33 @@ def up_del_users(sql):
         connection.close()
 
 
+def get_users_sign_in(sql, password, email):
+    ''' checked users sign in'''
+    try:
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='GHRRich',
+                                     db='BigTester',
+                                     charset='utf8mb4',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
+        with connection.cursor() as cursor:
+
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            for row in result:
+                if row['password'] == password and row['email'] == email:
+                    return True
+                else:
+                    return False
+
+        connection.commit()
+
+    finally:
+        connection.close()
+
+
 if __name__ == '__main__':
     new_password = 'new_password'
     email = 'admins@admins.ru'
-
     update_users_password(new_password, email)

@@ -3,10 +3,11 @@ from flask import render_template
 from flask import request
 
 from sqlrw import list_users
-from RegUsers import (RegUsersForm,
-                      UpdateUsersForm,
-                      DeleteUsersForm,
-                      )
+from Users import (RegUsersForm,
+                   UpdateUsersForm,
+                   DeleteUsersForm,
+                   SignIn
+                   )
 
 
 def get_user(errors=None):
@@ -35,11 +36,13 @@ dates = {
 
 @app.route('/', methods=['GET', 'POST'])
 def signin():
-    if request.method == 'POST' \
-            and request.form['email'] == 'admin@admin.ru' \
-            and request.form['password'] == 'admin':
-        return render_template("home.html")
-
+    if request.method == 'POST':
+        signin_form = SignIn(request.form['email'], request.form['password'])
+        signin_errors = signin_form.error_signin()
+        if signin_form.validate() == True:
+            return render_template("home.html")
+        else:
+            return render_template('signin.html', signin_errors=signin_errors)
     else:
         return render_template('signin.html')
 
@@ -132,7 +135,8 @@ def settings_users():
                                           request.form['re_newpassword'],
                                           )
             update_form.update_users()
-            return get_user()
+            errors_edit = update_form.errors_update()
+            return render_template("settings-users.html", errors_edit=errors_edit)
 
         else:
             return get_user()
