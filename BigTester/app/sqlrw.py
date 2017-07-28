@@ -117,8 +117,25 @@ def get_users_sign_in(sql, password, email):
     finally:
         connection.close()
 
+def wraper():
+    ''' wraper sql '''
+    try:
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='GHRRich',
+                                     db='BigTester',
+                                     charset='utf8mb4',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
+        with connection.cursor() as cursor:
+            # Read a single record
+            sql = "SELECT * FROM `IPSenderData`"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result
+    finally:
+        connection.close()
+
 
 if __name__ == '__main__':
-    new_password = 'new_password'
-    email = 'admins@admins.ru'
-    update_users_password(new_password, email)
+    print(wraper())

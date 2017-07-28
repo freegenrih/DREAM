@@ -27,18 +27,20 @@
         </thead>
         <tbody>
         {%if data%}
+        {%for row in data%}
         <tr>
-            <th>{{data.kay}}</th>
-            <th>{{data.CH1}}</th>
-            <th>{{data.CH2}}</th>
-            <th>{{data.CH3}}</th>
-            <th>{{data.CH4}}</th>
-            <th>{{data.CH5}}</th>
-            <th>{{data.CH6}}</th>
-            <th>{{data.CH7}}</th>
-            <th>{{data.CH8}}</th>
-            <th>20-07-2017</th>
+            <th>{{row.kay}}</th>
+            <th>{{row.ch1}}</th>
+            <th>{{row.ch2}}</th>
+            <th>{{row.ch3}}</th>
+            <th>{{row.ch4}}</th>
+            <th>{{row.ch5}}</th>
+            <th>{{row.ch6}}</th>
+            <th>{{row.ch7}}</th>
+            <th>{{row.ch8}}</th>
+            <th>{{row.datetimes[0:-7]}}</th>
         </tr>
+        {%endfor%}
         {%endif%}
         </tbody>
     </table>

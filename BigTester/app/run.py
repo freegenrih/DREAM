@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from sqlrw import list_users
+from sqlrw import list_users, wraper
 from Users import (RegUsersForm,
                    UpdateUsersForm,
                    DeleteUsersForm,
@@ -20,6 +20,7 @@ def get_user(errors=None):
 
 
 app = Flask(__name__)
+
 
 dates = {
     'kay': 'secret',
@@ -64,7 +65,9 @@ def monitoring_online():
 
 @app.route('/monitoring-database', methods=['GET'])
 def monitoring_database():
-    return render_template("monitoring-database.html", data=dates)
+    data = wraper()
+    print(data)
+    return render_template("monitoring-database.html", data=data)
 
 
 @app.route('/monitor', methods=['GET'])
