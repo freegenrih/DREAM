@@ -31,7 +31,11 @@
 </footer>
 <div class="wraper">
     <div class="left-menu">
-        {%block leftmenu%}{%endblock leftmenu%}
+      <div class="panel panel-primary">
+      <div class="panel-heading">{%block leftmenuhead%}{%endblock leftmenuhead%}</div>
+      <div class="panel-body">{%block leftmenu%}{%endblock leftmenu%}</div>
+      </div>
+
     </div>
     <div class="center-menu">
         {%block centermenu%}{%endblock centermenu%}
@@ -42,7 +46,7 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <center>
-                            <div id="clock">
+                            <div id="clock" class="btn btn-danger btn-block" style="margin-top: 10px;">
                                 <script src="static/js/time.js"></script>
                             </div>
                         </center>
