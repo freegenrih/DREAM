@@ -48,20 +48,19 @@
 
     </div>
     <div class="right-menu">
-        <center>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <center>
-                            <div id="clock" class="btn btn-danger btn-block" style="margin-top: 10px;">
-                                <script src="static/js/time.js"></script>
-                            </div>
-                        </center>
-                    </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                {%block rightmenuhead%}
+                <div id="clock" >
+                    <script src="static/js/time.js"></script>
                 </div>
+                {%endblock rightmenuhead%}
             </div>
-        </center>
-        {%block rightmenu%}{%endblock rightmenu%}
+            <div class="panel-body">
+                {%block rightmenu%}{%endblock rightmenu%}
+            </div>
+        </div>
+
     </div>
 
 </div>

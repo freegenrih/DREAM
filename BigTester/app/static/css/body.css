@@ -29,17 +29,19 @@ body {
     padding-right:2px;
 }
 .right-menu{
-  background-color: #779AEA;
+
     height: 700px;
     width: 15%;
     float:left;
     border-radius:5px;
 }
 #clock{
-
-	color: black;
+    height: 40px;
+	color: white;
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 28px;
+    padding-left:30px;
+
 }
 
 #errors{
