@@ -8,6 +8,11 @@
 {%block leftmenu%}
 {%include 'left-settings-menus.html'%}
 {%endblock leftmenu%}
+
+{%block centermenuhead%}
+<center><h4>Users</h4></center>
+{%endblock centermenuhead%}
+
 {%block centermenu%}
 <br>
 
@@ -78,7 +83,7 @@
 
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="padding-top:63px;">
             <form method="post" action="/settings-users">
                 <input type="email" name="email" placeholder="Email Users" required><br>
                 <input type="password" name="password" placeholder="Admin Password" required><br>

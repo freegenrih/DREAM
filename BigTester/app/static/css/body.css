@@ -25,6 +25,8 @@ body {
     width: 70%;
     float:left;
     border-radius:5px;
+    padding-left:2px;
+    padding-right:2px;
 }
 .right-menu{
   background-color: #779AEA;
