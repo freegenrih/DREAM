@@ -103,6 +103,7 @@ class UpdateUsersForm:
             return print('no update users to base data', self.error_update)
 
     def errors_update(self):
+        print(self.error_update)
         return self.error_update
 
 

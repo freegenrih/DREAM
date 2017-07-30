@@ -18,10 +18,7 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
         {%if signin_errors%}
-        <div style="border-color:red;
-        border-style: solid;
-        height: 100%;
-        border-radius: 4px;"
+        <div class="alert alert-danger"
         >
         {%if signin_errors.password%}
             {{signin_errors.password}}

@@ -21,7 +21,6 @@ def get_user(errors=None):
 
 app = Flask(__name__)
 
-
 dates = {
     'kay': 'secret',
     'CH1': 123,
@@ -100,7 +99,7 @@ def settings():
 @app.route('/settings-users', methods=['POST', 'GET'])
 def settings_users():
     if request.method == 'POST':
-        if request.form['submit'] == '          RegisterUser           ':
+        if request.form['submit'] == 'RegisterUser':
             if request.form['statusadmin'] == 'Admin':
                 statusadmin = 1
             else:
@@ -118,7 +117,7 @@ def settings_users():
             return get_user(errors)
 
 
-        elif request.form['submit'] == '           DeleteUser            ' and request.form['email'] != '':
+        elif request.form['submit'] == 'DeleteUser' and request.form['email'] != '':
             if request.form['password'] == request.form['re_password']:
                 del_form = DeleteUsersForm(request.form['email'],
                                            request.form['password'],
@@ -130,7 +129,7 @@ def settings_users():
             else:
                 return get_user()
 
-        elif request.form['submit'] == '      Update Password       ' and request.form['email'] != '':
+        elif request.form['submit'] == 'Update Password' and request.form['email'] != '':
             update_form = UpdateUsersForm(request.form['email'],
                                           request.form['username'],
                                           request.form['old_password'],

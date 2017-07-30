@@ -29,8 +29,9 @@
                 <input type="password" name="re_password" placeholder="RepeatPassword" required><br>
                 <input class="btn btn-primary btn-block" type="submit" name="submit" value="RegisterUser"><br>
             </form>
+
             {%if errors%}
-            <div id="errors">
+                <div class="alert alert-danger">
                 <center><h4 style="color: red">Errors:</h4></center>
                 <ul>
                     {%if errors.username%}
@@ -46,8 +47,9 @@
                     <li><a style="color:red;">{{errors.password}}</a></li>
                     {%endif%}
                 </ul>
-            </div>
+                </div>
             {%endif%}
+
         </div>
 
         <div class="col-xs-3 ">
@@ -61,7 +63,7 @@
             </form>
 
             {%if errors_edit%}
-            <div id="errors">
+            <div class="alert alert-danger">
                 <center><h4 style="color: red">Errors:</h4></center>
                 <ul>
                     {%if errors_edit.password%}
@@ -84,7 +86,7 @@
                 <input class="btn btn-primary btn-block" type="submit" name="submit" value="DeleteUser">
             </form>
             {%if errors_delete%}
-            <div id="errors">
+            <div class="alert alert-danger">
                 <center><h4 style="color: red">Errors:</h4></center>
                 <ul>
                     {%if errors_delete.password%}
