@@ -13,7 +13,7 @@ body {
 
 }
 .left-menu{
-    height: 700px;
+    height: 100%;
     width: 15%;
     float:left;
     border-radius:5px;
@@ -30,7 +30,7 @@ body {
 }
 .right-menu{
 
-    height: 700px;
+    height: 100%;
     width: 15%;
     float:left;
     border-radius:5px;
@@ -40,7 +40,7 @@ body {
 	color: white;
 	font-weight: bold;
 	font-size: 28px;
-    padding-left:30px;
+
 
 }
 

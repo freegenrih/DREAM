@@ -3,7 +3,7 @@ from sqlrw import (crt_users,
                    get_users,
                    up_del_users,
                    get_users_sign_in
-                  )
+                   )
 
 
 class RegUsersForm:
@@ -34,6 +34,7 @@ class RegUsersForm:
         if len(self.email) > 64 \
                 or self.email.find('@') == -1 \
                 or self.email.find('@') == -1 \
+                or self.email.find('.') == -1 \
                 or len(self.email) == 0 \
                 or re.search(r'[!?<:>/]', self.email) != None \
                 or re.match(r'<script', self.email) != None:
@@ -65,7 +66,7 @@ class UpdateUsersForm:
         self.old_password = old_password
         self.new_password = new_password
         self.re_newpassword = re_newpassword
-        self.error_update = {}
+        self.error_updates = {}
         self.sql = "UPDATE `Users`SET `password` = '{}' WHERE `Users`.`email` = '{}'" \
             .format(self.new_password, self.email)
 
@@ -75,7 +76,7 @@ class UpdateUsersForm:
                 or len(self.old_password) > 10 \
                 or len(self.old_password) < 5:
             password_error = {'password': 'No confirm password'}
-            self.error_update.update(password_error)
+            self.error_updates.update(password_error)
 
         if len(self.username) < 4 \
                 or len(self.username) > 15 \
@@ -83,28 +84,29 @@ class UpdateUsersForm:
                 or re.match(r'<script', self.username) != None:
             username_error = {
                 'username': 'The length of the username must be at least 4 characters and not more than 15'}
-            self.error_update.update(username_error)
+            self.error_updates.update(username_error)
 
         if len(self.email) > 64 \
                 or self.email.find('@') == -1 \
                 or self.email.find('@') == -1 \
+                or self.email.find('.') == -1 \
                 or len(self.email) == 0 \
                 or re.search(r'[!?<:>/]', self.email) != None \
                 or re.match(r'<script', self.email) != None:
             email_error = {
                 'email': 'No  correct email '}
-            self.error_update.update(email_error)
+            self.error_updates.update(email_error)
 
     def update_users(self):
-        if len(self.error_update) == 0:
+        if len(self.error_updates) == 0:
             up_del_users(self.sql)
             return print('update info to users')
         else:
-            return print('no update users to base data', self.error_update)
+            return print('no update users to base data', self.error_updates)
 
-    def errors_update(self):
-        print(self.error_update)
-        return self.error_update
+    def errors_updates(self):
+
+        return self.error_updates
 
 
 class DeleteUsersForm:
@@ -115,10 +117,31 @@ class DeleteUsersForm:
         self.error_delete = {}
         self.sql = "DELETE FROM `Users` WHERE `Users`.`email` = '{}'".format(self.email)
 
+        if len(self.email) > 64 \
+                or self.email.find('@') == -1 \
+                or self.email.find('@') == -1 \
+                or self.email.find('.') == -1 \
+                or len(self.email) == 0 \
+                or re.search(r'[!?<:>/]', self.email) != None \
+                or re.match(r'<script', self.email) != None:
+            email_error = {
+                'email': 'No  correct email '}
+            self.error_delete.update(email_error)
+
+        if self.password != self.re_password \
+                or re.match('<script', self.password) != None \
+                or re.match('<script', self.re_password) != None \
+                or len(self.password) > 10 \
+                or len(self.password) < 5:
+            password_error = {'password': 'No confirm password'}
+            self.error_delete.update(password_error)
+
     def delete_users(self):
+
         up_del_users(self.sql)
 
     def errors_delete(self):
+        print(self.error_delete)
         return self.error_delete
 
 
@@ -128,7 +151,6 @@ class SignIn:
         self.password = password
         self.error_sign_in = {}
         self.sql = "SELECT `password`, `email` FROM `Users` WHERE `email`='{}'".format(self.email)
-
 
         if len(self.email) > 64 \
                 or self.email.find('@') == -1 \
@@ -153,7 +175,6 @@ class SignIn:
 
         else:
             False
-
 
     def error_signin(self):
         return self.error_sign_in

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/body.css" rel="stylesheet">
+
     {%block extralink%}
     {%endblock extralink%}
     <title>{%block title%}{%endblock title%}</title>
@@ -51,12 +52,16 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 {%block rightmenuhead%}
-                <div id="clock" >
-                    <script src="static/js/time.js"></script>
-                </div>
+                <center>
+                    <div id="clock">
+                        <script src="static/js/time.js"></script>
+                    </div>
+                </center>
+
                 {%endblock rightmenuhead%}
             </div>
             <div class="panel-body">
+
                 {%block rightmenu%}{%endblock rightmenu%}
             </div>
         </div>

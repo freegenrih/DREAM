@@ -11,12 +11,11 @@ from Users import (RegUsersForm,
 
 
 def get_user(errors=None):
-    data = list_users()
     if errors != None:
-        return render_template("settings-users.html", data=data, errors=errors)
+        return render_template("settings-users.html", data=list_users(), errors=errors)
 
     else:
-        return render_template("settings-users.html", data=data)
+        return render_template("settings-users.html", data=list_users())
 
 
 app = Flask(__name__)
@@ -113,8 +112,7 @@ def settings_users():
                                     statusadmin
                                     )
             reg_form.write_users()
-            errors = reg_form.errors()
-            return get_user(errors)
+            return render_template("settings-users.html", data=list_users(), errors=reg_form.errors())
 
 
         elif request.form['submit'] == 'DeleteUser' and request.form['email'] != '':
@@ -124,10 +122,10 @@ def settings_users():
                                            request.form['re_password'],
                                            )
                 del_form.delete_users()
-                return get_user()
+                return render_template("settings-users.html", data=list_users(), errors_delete=del_form.errors_delete())
 
             else:
-                return get_user()
+                return render_template("settings-users.html", data=list_users())
 
         elif request.form['submit'] == 'Update Password' and request.form['email'] != '':
             update_form = UpdateUsersForm(request.form['email'],
@@ -137,14 +135,14 @@ def settings_users():
                                           request.form['re_newpassword'],
                                           )
             update_form.update_users()
-            errors_edit = update_form.errors_update()
-            return render_template("settings-users.html", errors_edit=errors_edit)
+            errors_edit = update_form.errors_updates()
+            return render_template("settings-users.html", data=list_users(), errors_edit=errors_edit)
 
         else:
-            return get_user()
+            return render_template("settings-users.html", data=list_users())
 
     else:
-        return get_user()
+        return render_template("settings-users.html", data=list_users())
 
 
 @app.route('/settings-ipsender', methods=['POST', 'GET'])
