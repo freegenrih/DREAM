@@ -16,130 +16,184 @@
 
 {%block centermenu%}
 <br>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-3 col-xs-offset-1 ">
-            <form method="post" action="/settings-users">
-                <select class="btn-block" type="text" name="statusadmin">
-                    <option value="User">
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspUser&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    </option>
-                    <option value="Admin">
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAdmin&nbsp&nbsp&nbsp&nbsp&nbsp
-                    </option>
-                </select>
-                <input type="email" name="email" placeholder="Email" required><br>
-                <input type="text" name="username" placeholder="Username" required><br>
-                <input type="password" name="password" placeholder="Password" required><br>
-                <input type="password" name="re_password" placeholder="RepeatPassword" required><br>
-                <input class="btn btn-success btn-block" type="submit" name="submit" value="RegisterUser"><br>
-            </form>
-
-            {%if errors%}
-            <br>
-            <div class="alert alert-danger">
-
-                <ul>
-                    {%if errors.username%}
-                    <li><a style="color:red;">{{errors.username}}</a><br></li>
-                    {%endif%}
-                    {%if errors.email%}
-                    <li><a style="color:red;">{{errors.email}}</a><br></li>
-                    {%endif%}
-                    {%if errors.emailbd%}
-                    <li><a style="color:red;">{{errors.emailbd}}</a><br></li>
-                    {%endif%}
-                    {%if errors.password%}
-                    <li><a style="color:red;">{{errors.password}}</a></li>
-                    {%endif%}
-                </ul>
+<center>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-3 ">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Create</div>
+                    <div class="panel-body" style="height:230px;">
+                        <div class="form-group">
+                            <form method="post" action="/settings-users">
+                                <select class="btn-block" name="statusadmin">
+                                    <option value="User">
+                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspUser&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    </option>
+                                    <option value="Admin">
+                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAdmin&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    </option>
+                                </select>
+                                <input type="email" class="form-control input-sm" name="email" placeholder="Email"
+                                       required>
+                                <input type="text" class="form-control input-sm" name="username" placeholder="Username"
+                                       required>
+                                <input type="password" class="form-control input-sm" name="password"
+                                       placeholder="Password"
+                                       required>
+                                <input type="password" class="form-control input-sm" name="re_password"
+                                       placeholder="RepeatPassword"
+                                       required>
+                                <input class="btn btn-success btn-block" type="submit" name="submit"
+                                       value="RegisterUser">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {%endif%}
 
-        </div>
 
-        <div class="col-xs-3 ">
-            <form method="post" action="/settings-users">
-                <input type="text" name="email" placeholder="Email"><br>
-                <input type="text" name="username" placeholder="Username"><br>
-                <input type="password" name="old_password" placeholder="Old Password"><br>
-                <input type="password" name="newpassword" placeholder="New Password"><br>
-                <input type="password" name="re_newpassword" placeholder="Repeat New Password"><br>
-                <input class="btn btn-warning btn-block" type="submit" name="submit" value="Update Password">
-            </form>
+            <div class="col-xs-3 ">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Update</div>
+                    <div class="panel-body" style="height:230px;">
+                        <form method="post" action="/settings-users">
+                            <input type="text" class="form-control input-sm" name="email"
+                                   placeholder="Email">
+                            <input type="text" class="form-control input-sm" name="username"
+                                   placeholder="Username">
+                            <input type="password" class="form-control input-sm" name="old_password"
+                                   placeholder="Old Password">
+                            <input type="password" class="form-control input-sm" name="newpassword"
+                                   placeholder="New Password">
+                            <input type="password" class="form-control input-sm" name="re_newpassword"
+                                   placeholder="Repeat New Password">
+                            <input class="btn btn-warning btn-block" type="submit" name="submit"
+                                   value="Update Password">
+                        </form>
 
-            {%if errors_edit%}
-            <br>
-            <div class="alert alert-danger">
 
-                <ul>
-                    {%if errors_edit.password%}
-                    <li><a style="color:red;">{{errors_edit.password}}</a><br></li>
-                    {%endif%}
-                    {%if errors_edit.username%}
-                    <li><a style="color:red;">{{errors_edit.username}}</a><br></li>
-                    {%endif%}
-                </ul>
+                    </div>
+                </div>
             </div>
-            {%endif%}
+            <div class="col-xs-3  ">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Delete</div>
+                    <div class="panel-body" style="height:230px;">
+                        <form method="post" action="/settings-users">
+                            <div class="form-group">
+                                <input type="email" class="form-control input-sm" name="email" placeholder="Email Users"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control input-sm" name="password"
+                                       placeholder="Admin Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control input-sm" name="re_password"
+                                       placeholder="Return Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-danger btn-block" type="submit" name="submit" value="DeleteUser">
+                            </div>
+                        </form>
 
-        </div>
-
-        <div class="col-sm-3" style="padding-top:63px;">
-            <form method="post" action="/settings-users">
-                <input type="email" name="email" placeholder="Email Users" required><br>
-                <input type="password" name="password" placeholder="Admin Password" required><br>
-                <input type="password" name="re_password" placeholder="Return Password" required><br>
-                <input class="btn btn-danger btn-block" type="submit" name="submit" value="DeleteUser">
-            </form>
-            {%if errors_delete%}
-            <br>
-            <div class="alert alert-danger" >
-
-                <ul>
-                    {%if errors_delete.password%}
-                    <li><a style="color:red;">{{errors_delete.password}}</a><br></li>
-                    {%endif%}
-                    {%if errors_delete.email%}
-                    <li><a style="color:red;">{{errors_delete.email}}</a><br></li>
-                    {%endif%}
-                </ul>
+                    </div>
+                </div>
             </div>
-            {%endif%}
-        </div>
+            <div class="col-xs-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <center>Errors</center>
+                    </div>
+                    <div class="panel-body" style="height:230px;">
 
+                        {%if errors%}
+                        <div class="alert alert-danger">
+
+                            {%if errors.username%}
+                            <a style="color:red;">{{errors.username}}</a>
+                            {%endif%}
+                            {%if errors.email%}
+                            <a style="color:red;">{{errors.email}}</a>
+                            {%endif%}
+                            {%if errors.emailbd%}
+                            <a style="color:red;">{{errors.emailbd}}</a>
+                            {%endif%}
+                            {%if errors.password%}
+                            <a style="color:red;">{{errors.password}}</a>
+                            {%endif%}
+
+                        </div>
+                        {%endif%}
+
+                        {%if errors_edit%}
+                        <div class="alert alert-danger">
+
+                            {%if errors_edit.password%}
+                            <a style="color:red;">{{errors_edit.password}}</a>
+                            {%endif%}
+                            {%if errors_edit.username%}
+                            <a style="color:red;">{{errors_edit.username}}</a>
+                            {%endif%}
+
+                        </div>
+                        {%endif%}
+
+                        {%if errors_delete%}
+                        <div class="alert alert-danger">
+
+                            {%if errors_delete.password%}
+                            <a style="color:red;">{{errors_delete.password}}</a>
+                            {%endif%}
+                            {%if errors_delete.email%}
+                            <a style="color:red;">{{errors_delete.email}}</a>
+                            {%endif%}
+
+                        </div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <center>Users List</center>
+    </div>
+    <div class="panel-body">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table" style="height: 100%;width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>User Name</th>
+                        <th>Password</th>
+                        <th>Admin</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%if data%}
+                    {%for row in data%}
+                    <tr>
+                        <th>{{row['id']}}</th>
+                        <th>{{row['email']}}</th>
+                        <th>{{row['username']}}</th>
+                        <th>{{row['password']}}</th>
+                        <th>{{row['statusadmin']}}</th>
+                    </tr>
+                    {%endfor%}
+                    {%endif%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 </div>
 
-
-<div class="col-xs-12">
-    <div class="table-responsive">
-        <table class="table" style="height: 100%;width: 100%;">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>User Name</th>
-                <th>Password</th>
-                <th>Admin</th>
-            </tr>
-            </thead>
-            <tbody>
-            {%if data%}
-            {%for row in data%}
-            <tr>
-                <th>{{row['id']}}</th>
-                <th>{{row['email']}}</th>
-                <th>{{row['username']}}</th>
-                <th>{{row['password']}}</th>
-                <th>{{row['statusadmin']}}</th>
-            </tr>
-            {%endfor%}
-            {%endif%}
-            </tbody>
-        </table>
-    </div>
-</div>
 {%endblock centermenu%}
