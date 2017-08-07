@@ -6,7 +6,8 @@ from sqlrw import list_users, wraper
 from Users import (RegUsersForm,
                    UpdateUsersForm,
                    DeleteUsersForm,
-                   SignIn
+                   SignIn,
+                   IPSender
                    )
 
 
@@ -147,7 +148,11 @@ def settings_users():
 
 @app.route('/settings-ipsender', methods=['POST', 'GET'])
 def settings_ipsenders():
-    return render_template("settings-ipsender.html")
+    if request.method == 'POST':
+        errors = IPSender(request.form['name'], request.form['key'], request.form['password'])
+        return render_template("settings-ipsender.html", errors_ipsender=errors.get_errors_ipsender())
+    else:
+        return render_template("settings-ipsender.html")
 
 
 if __name__ == '__main__':

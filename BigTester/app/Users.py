@@ -169,7 +169,6 @@ class SignIn:
             self.error_sign_in.update(password_error)
 
     def validate(self):
-        # сделать запрос в бд и проверить соответствие email и password
         if get_users_sign_in(self.sql, self.password, self.email) == True:
             return True
 
@@ -178,3 +177,36 @@ class SignIn:
 
     def error_signin(self):
         return self.error_sign_in
+
+
+class IPSender:
+    def __init__(self, name, key, password):
+        self.name = name
+        self.key = key
+        self.password = password
+        self.error_ipsender = {}
+
+        if re.match('<script', self.name) != None \
+                or len(self.name) > 20 \
+                or len(self.name) < 5:
+            name_error = {'name': 'Need Len Name <20 and >5 '}
+            self.error_ipsender.update(name_error)
+
+
+        if re.match('<script', self.password) != None \
+                or len(self.password) > 10 \
+                or len(self.password) < 5:
+            password_error = {'password': 'No confirm password'}
+            self.error_ipsender.update(password_error)
+
+
+    def create_ipsender(self):
+        if len(self.error_ipsender) == 0:
+            pass
+        pass
+
+    def delete_ipsender(self):
+        pass
+
+    def get_errors_ipsender(self):
+        return self.error_ipsender
