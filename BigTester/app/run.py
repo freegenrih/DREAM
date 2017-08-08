@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 
 from sqlrw import list_users, wraper_read
+
 from Users import (RegUsersForm,
                    UpdateUsersForm,
                    DeleteUsersForm,
@@ -11,13 +12,6 @@ from Users import (RegUsersForm,
                    IPsenderGet
                    )
 
-
-def get_user(errors=None):
-    if errors != None:
-        return render_template("settings-users.html", data=list_users(), errors=errors)
-
-    else:
-        return render_template("settings-users.html", data=list_users())
 
 
 app = Flask(__name__)
@@ -67,7 +61,6 @@ def monitoring_online():
 def monitoring_database():
     sql = "SELECT * FROM `IPSenderData`"
     data = wraper_read(sql)
-    print(data)
     return render_template("monitoring-database.html", data=data)
 
 
@@ -107,7 +100,6 @@ def settings_users():
             else:
                 statusadmin = 0
 
-            print('statusadmin', statusadmin)
             reg_form = RegUsersForm(request.form['email'],
                                     request.form['username'],
                                     request.form['password'],

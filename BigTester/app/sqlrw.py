@@ -16,9 +16,8 @@ def list_users():
             sql = "SELECT * FROM `Users` "
             cursor.execute(sql)
             result = cursor.fetchall()
-            print('read Users')
-
             return result
+
     finally:
         connection.close()
 
@@ -132,9 +131,7 @@ def wraper_read(sql):
             # Read a single record
             cursor.execute(sql)
             result = cursor.fetchall()
-
             return result
-
 
     finally:
         connection.close()
