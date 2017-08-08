@@ -2,7 +2,8 @@ import re
 from sqlrw import (crt_users,
                    get_users,
                    up_del_users,
-                   get_users_sign_in
+                   get_users_sign_in,
+                   wraper
                    )
 
 
@@ -179,8 +180,8 @@ class SignIn:
         return self.error_sign_in
 
 
-class IPSender:
-    def __init__(self, name, key, password):
+class IPSenderRegDel:
+    def __init__(self, name: str, key: str, password: str):
         self.name = name
         self.key = key
         self.password = password
@@ -192,21 +193,30 @@ class IPSender:
             name_error = {'name': 'Need Len Name <20 and >5 '}
             self.error_ipsender.update(name_error)
 
-
         if re.match('<script', self.password) != None \
                 or len(self.password) > 10 \
                 or len(self.password) < 5:
             password_error = {'password': 'No confirm password'}
             self.error_ipsender.update(password_error)
 
-
     def create_ipsender(self):
+        '''Create IP Sender in DB'''
         if len(self.error_ipsender) == 0:
             pass
         pass
 
     def delete_ipsender(self):
+        '''Delete IP Sender of DB'''
         pass
 
     def get_errors_ipsender(self):
+        '''Get full errors IP Sender'''
         return self.error_ipsender
+
+
+class IPsenderGet:
+    sql = "SELECT * FROM `IPSender`"
+
+    def list_ipsender(self):
+        '''Get full list IP Sender of DB '''
+        return wraper(self.sql)

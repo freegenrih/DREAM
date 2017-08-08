@@ -7,7 +7,8 @@ from Users import (RegUsersForm,
                    UpdateUsersForm,
                    DeleteUsersForm,
                    SignIn,
-                   IPSender
+                   IPSenderRegDel,
+                   IPsenderGet
                    )
 
 
@@ -64,7 +65,8 @@ def monitoring_online():
 
 @app.route('/monitoring-database', methods=['GET'])
 def monitoring_database():
-    data = wraper()
+    sql = "SELECT * FROM `IPSenderData`"
+    data = wraper(sql)
     print(data)
     return render_template("monitoring-database.html", data=data)
 
@@ -149,10 +151,13 @@ def settings_users():
 @app.route('/settings-ipsender', methods=['POST', 'GET'])
 def settings_ipsenders():
     if request.method == 'POST':
-        errors = IPSender(request.form['name'], request.form['key'], request.form['password'])
-        return render_template("settings-ipsender.html", errors_ipsender=errors.get_errors_ipsender())
+        ipsender = IPSenderRegDel(request.form['name'], request.form['key'], request.form['password'])
+        errors = ipsender.get_errors_ipsender()
+
+        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list)
     else:
-        return render_template("settings-ipsender.html")
+        ipsender_list = IPsenderGet().list_ipsender()
+        return render_template("settings-ipsender.html", ipsender_list=ipsender_list)
 
 
 if __name__ == '__main__':

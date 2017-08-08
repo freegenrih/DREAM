@@ -117,7 +117,8 @@ def get_users_sign_in(sql, password, email):
     finally:
         connection.close()
 
-def wraper():
+
+def wraper(sql):
     ''' wraper sql '''
     try:
         connection = pymysql.connect(host='localhost',
@@ -129,13 +130,14 @@ def wraper():
 
         with connection.cursor() as cursor:
             # Read a single record
-            sql = "SELECT * FROM `IPSenderData`"
             cursor.execute(sql)
             result = cursor.fetchall()
+            #print(result)
             return result
     finally:
         connection.close()
 
 
 if __name__ == '__main__':
-    print(wraper())
+    sql = "SELECT * FROM `IPSender`"
+    print(wraper(sql))
