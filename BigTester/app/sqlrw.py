@@ -118,8 +118,8 @@ def get_users_sign_in(sql, password, email):
         connection.close()
 
 
-def wraper(sql):
-    ''' wraper sql '''
+def wraper_read(sql):
+    ''' wraper  read sql  '''
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
@@ -132,12 +132,33 @@ def wraper(sql):
             # Read a single record
             cursor.execute(sql)
             result = cursor.fetchall()
-            #print(result)
+
             return result
+
+
+    finally:
+        connection.close()
+
+
+def wraper_write(sql):
+    '''wraper write sql'''
+    try:
+        connection = pymysql.connect(host='localhost',
+                                     user='root',
+                                     password='GHRRich',
+                                     db='BigTester',
+                                     charset='utf8mb4',
+                                     cursorclass=pymysql.cursors.DictCursor)
+
+        with connection.cursor() as cursor:
+            # Create a new record
+            cursor.execute(sql)
+
+        connection.commit()
     finally:
         connection.close()
 
 
 if __name__ == '__main__':
-    sql = "SELECT * FROM `IPSender`"
-    print(wraper(sql))
+    sql = "DELETE FROM `IPSender` WHERE `name_ipsender`='lkjsdkflj' AND `key_ipsender`='lkjkldf' "
+    wraper_write(sql)

@@ -50,13 +50,14 @@
                 <div class="panel-body" style="height:230px;">
                     <form method="POST" action="/settings-ipsender">
                         <div class="form-group">
-                            <input type="text" class="form-control input-sm" placeholder="Name IP I.O">
+                            <input type="text" name="name" class="form-control input-sm" placeholder="Name IP I.O">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control input-sm" placeholder="Key">
+                            <input type="text" name="key" class="form-control input-sm" placeholder="Key">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control input-sm" placeholder="Admin Password">
+                            <input type="text" name="password" class="form-control input-sm"
+                                   placeholder="Admin Password">
                         </div>
                         <div class="form-group">
                             <input class="btn btn-danger btn-block" type="submit" name="submit" value="Delete IPS">
@@ -73,6 +74,7 @@
                 </div>
                 <div class="panel-body" style="height:230px;">
                     {%if errors_ipsender%}
+                    <div class="alert alert-danger"
                     <ul>
                         {%if errors_ipsender.name%}
                         <li>{{errors_ipsender.name}}</li>
@@ -82,22 +84,23 @@
                         <li>{{errors_ipsender.password}}</li>
                         {%endif%}
                     </ul>
-                    {%endif%}
                 </div>
+                {%endif%}
             </div>
         </div>
-        <div class="col-xs-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <center>Info</center>
-                </div>
-                <div class="panel-body" style="height:230px;">
-
-                </div>
-            </div>
-        </div>
-
     </div>
+    <div class="col-xs-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <center>Info</center>
+            </div>
+            <div class="panel-body" style="height:230px;">
+
+            </div>
+        </div>
+    </div>
+
+</div>
 </div>
 
 
@@ -111,18 +114,22 @@
                 <table class="table" style="height: 100%;width: 100%;">
                     <thead>
                     <tr>
+                        <th>№</th>
                         <th>ID</th>
-                        <th>IP Sender Key</th>
-                        <th>IP Sender Name</th>
+                        <th>Key Sender</th>
+                        <th>Name Sender</th>
                     </tr>
                     </thead>
                     <tbody>
                     {%if ipsender_list%}
+
                     {%for row in ipsender_list%}
                     <tr>
+                        <th>{{i}}</th>
                         <th>{{row.id}}</th>
                         <th>{{row.key_ipsender}}</th>
                         <th>{{row.name_ipsender}}</th>
+
                     </tr>
                     {%endfor%}
                     {%endif%}

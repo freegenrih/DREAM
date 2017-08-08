@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from sqlrw import list_users, wraper
+from sqlrw import list_users, wraper_read
 from Users import (RegUsersForm,
                    UpdateUsersForm,
                    DeleteUsersForm,
@@ -66,7 +66,7 @@ def monitoring_online():
 @app.route('/monitoring-database', methods=['GET'])
 def monitoring_database():
     sql = "SELECT * FROM `IPSenderData`"
-    data = wraper(sql)
+    data = wraper_read(sql)
     print(data)
     return render_template("monitoring-database.html", data=data)
 
@@ -150,11 +150,20 @@ def settings_users():
 
 @app.route('/settings-ipsender', methods=['POST', 'GET'])
 def settings_ipsenders():
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form['submit'] == "Create IPS":
         ipsender = IPSenderRegDel(request.form['name'], request.form['key'], request.form['password'])
         errors = ipsender.get_errors_ipsender()
-
+        ipsender.create_ipsender()
+        ipsender_list = IPsenderGet().list_ipsender()
         return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list)
+
+    if request.method == 'POST' and request.form['submit'] == "Delete IPS":
+        ipsender = IPSenderRegDel(request.form['name'], request.form['key'], request.form['password'])
+        errors = ipsender.get_errors_ipsender()
+        ipsender.delete_ipsender()
+        ipsender_list = IPsenderGet().list_ipsender()
+        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list)
+
     else:
         ipsender_list = IPsenderGet().list_ipsender()
         return render_template("settings-ipsender.html", ipsender_list=ipsender_list)

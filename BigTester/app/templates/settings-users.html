@@ -109,20 +109,20 @@
 
                         {%if errors%}
                         <div class="alert alert-danger">
-
-                            {%if errors.username%}
-                            <a style="color:red;">{{errors.username}}</a>
-                            {%endif%}
-                            {%if errors.email%}
-                            <a style="color:red;">{{errors.email}}</a>
-                            {%endif%}
-                            {%if errors.emailbd%}
-                            <a style="color:red;">{{errors.emailbd}}</a>
-                            {%endif%}
-                            {%if errors.password%}
-                            <a style="color:red;">{{errors.password}}</a>
-                            {%endif%}
-
+                            <ul>
+                                {%if errors.username%}
+                                <li style="color:red;">{{errors.username}}</li>
+                                {%endif%}
+                                {%if errors.email%}
+                                <li style="color:red;">{{errors.email}}</li>
+                                {%endif%}
+                                {%if errors.emailbd%}
+                                <li style="color:red;">{{errors.emailbd}}</li>
+                                {%endif%}
+                                {%if errors.password%}
+                                <li style="color:red;">{{errors.password}}</li>
+                                {%endif%}
+                            </ul>
                         </div>
                         {%endif%}
 

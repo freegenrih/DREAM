@@ -3,7 +3,9 @@ from sqlrw import (crt_users,
                    get_users,
                    up_del_users,
                    get_users_sign_in,
-                   wraper
+                   wraper_read,
+                   wraper_write,
+
                    )
 
 
@@ -186,6 +188,11 @@ class IPSenderRegDel:
         self.key = key
         self.password = password
         self.error_ipsender = {}
+        self.sql_create = "INSERT INTO `IPSender` (`name_ipsender`,`key_ipsender`) " \
+                          "VALUES ('{}','{}')".format(str(self.name), str(self.key))
+
+        self.sql_delete = "DELETE FROM `IPSender` WHERE `name_ipsender`='{}' AND `key_ipsender`='{}'" \
+            .format(str(self.name), str(self.key))
 
         if re.match('<script', self.name) != None \
                 or len(self.name) > 20 \
@@ -202,11 +209,16 @@ class IPSenderRegDel:
     def create_ipsender(self):
         '''Create IP Sender in DB'''
         if len(self.error_ipsender) == 0:
+
+            return wraper_write(self.sql_create)
+        else:
             pass
-        pass
 
     def delete_ipsender(self):
         '''Delete IP Sender of DB'''
+        if len(self.error_ipsender) == 0:
+            print("class delete")
+            return wraper_write(self.sql_delete)
         pass
 
     def get_errors_ipsender(self):
@@ -219,4 +231,4 @@ class IPsenderGet:
 
     def list_ipsender(self):
         '''Get full list IP Sender of DB '''
-        return wraper(self.sql)
+        return wraper_read(self.sql)
