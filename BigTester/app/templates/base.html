@@ -22,7 +22,7 @@
                         <li><a href="/home"><span class="glyphicon glyphicon-home"></span></a></li>
                         <li><a href="/monitoring"><span class="glyphicon glyphicon-th-list"></span></a></li>
                         <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-                        <li><a href="/"><span class="glyphicon glyphicon-random"></span></a></li>
+                        <li><a href="{{url_for('logout')}}"><span class="glyphicon glyphicon-random"></span></a></li>
                     </ul>
                 </center>
             </div>
@@ -62,7 +62,11 @@
             </div>
             <div class="panel-body">
                 <center>
-                    <div class="alert alert-info">User Name</div>
+                    <div class="alert alert-info">
+                        {%if user%}
+                        {{user}}
+                        {%endif%}
+                    </div>
                 </center>
                 {%block rightmenu%}
                 {%endblock rightmenu%}

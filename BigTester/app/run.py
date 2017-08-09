@@ -1,6 +1,11 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import session
+from flask import escape
+from flask import url_for
+from flask import redirect
+
 
 from sqlrw import list_users, wraper_read
 
@@ -15,6 +20,7 @@ from Users import (RegUsersForm,
 
 
 app = Flask(__name__)
+app.secret_key = 'thisIsSecretKey:)'
 
 dates = {
     'kay': 'secret',
@@ -27,7 +33,12 @@ dates = {
     'CH7': 1255,
     'CH8': 1212,
 }
-
+def get_sesion_user():
+    if escape(session['email']):
+        user = escape(session['email'])
+    else:
+        user = None
+    return user
 
 @app.route('/', methods=['GET', 'POST'])
 def signin():
@@ -35,7 +46,9 @@ def signin():
         signin_form = SignIn(request.form['email'], request.form['password'])
         signin_errors = signin_form.error_signin()
         if signin_form.validate() == True:
-            return render_template("home.html")
+            session['email'] = request.form['email']
+
+            return render_template("home.html", user=get_sesion_user())
         else:
             return render_template('signin.html', signin_errors=signin_errors)
     else:
@@ -44,24 +57,25 @@ def signin():
 
 @app.route('/home', methods=['GET'])
 def home():
-    return render_template('home.html')
+    user = escape(session['email'])
+    return render_template('home.html', user=get_sesion_user())
 
 
 @app.route('/monitoring', methods=['GET'])
 def monitoring():
-    return render_template("monitoring.html")
+    return render_template("monitoring.html", user=get_sesion_user())
 
 
 @app.route('/monitoring-online', methods=['GET'])
 def monitoring_online():
-    return render_template("monitoring-online.html", data=dates)
+    return render_template("monitoring-online.html", data=dates, user=get_sesion_user())
 
 
 @app.route('/monitoring-database', methods=['GET'])
 def monitoring_database():
     sql = "SELECT * FROM `IPSenderData`"
     data = wraper_read(sql)
-    return render_template("monitoring-database.html", data=data)
+    return render_template("monitoring-database.html", data=data, user=get_sesion_user())
 
 
 @app.route('/monitor', methods=['GET'])
@@ -81,14 +95,14 @@ def monitor():
         }
         global dates
         dates = data
-        return render_template("monitor.html", data=dates)
+        return render_template("monitor.html", data=dates, user=get_sesion_user())
     else:
-        return render_template("monitor.html")
+        return render_template("monitor.html", user=get_sesion_user())
 
 
 @app.route('/settings', methods=['POST', 'GET'])
 def settings():
-    return render_template("settings.html")
+    return render_template("settings.html", user=get_sesion_user())
 
 
 @app.route('/settings-users', methods=['POST', 'GET'])
@@ -107,7 +121,7 @@ def settings_users():
                                     statusadmin
                                     )
             reg_form.write_users()
-            return render_template("settings-users.html", data=list_users(), errors=reg_form.errors())
+            return render_template("settings-users.html", data=list_users(), errors=reg_form.errors(), user=get_sesion_user())
 
 
         elif request.form['submit'] == 'DeleteUser' and request.form['email'] != '':
@@ -117,10 +131,10 @@ def settings_users():
                                            request.form['re_password'],
                                            )
                 del_form.delete_users()
-                return render_template("settings-users.html", data=list_users(), errors_delete=del_form.errors_delete())
+                return render_template("settings-users.html", data=list_users(), errors_delete=del_form.errors_delete(), user=get_sesion_user())
 
             else:
-                return render_template("settings-users.html", data=list_users())
+                return render_template("settings-users.html", data=list_users(), user=get_sesion_user())
 
         elif request.form['submit'] == 'Update Password' and request.form['email'] != '':
             update_form = UpdateUsersForm(request.form['email'],
@@ -131,13 +145,14 @@ def settings_users():
                                           )
             update_form.update_users()
             errors_edit = update_form.errors_updates()
-            return render_template("settings-users.html", data=list_users(), errors_edit=errors_edit)
+            return render_template("settings-users.html", data=list_users(), errors_edit=errors_edit, user=get_sesion_user())
 
         else:
-            return render_template("settings-users.html", data=list_users())
+            return render_template("settings-users.html", data=list_users(), user=get_sesion_user())
 
     else:
-        return render_template("settings-users.html", data=list_users())
+
+        return render_template("settings-users.html", data=list_users(), user=get_sesion_user())
 
 
 @app.route('/settings-ipsender', methods=['POST', 'GET'])
@@ -147,19 +162,26 @@ def settings_ipsenders():
         errors = ipsender.get_errors_ipsender()
         ipsender.create_ipsender()
         ipsender_list = IPsenderGet().list_ipsender()
-        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list)
+
+        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list, user=get_sesion_user())
 
     if request.method == 'POST' and request.form['submit'] == "Delete IPS":
         ipsender = IPSenderRegDel(request.form['name'], request.form['key'], request.form['password'])
         errors = ipsender.get_errors_ipsender()
         ipsender.delete_ipsender()
         ipsender_list = IPsenderGet().list_ipsender()
-        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list)
+
+        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list, user=get_sesion_user())
 
     else:
         ipsender_list = IPsenderGet().list_ipsender()
-        return render_template("settings-ipsender.html", ipsender_list=ipsender_list)
+        return render_template("settings-ipsender.html", ipsender_list=ipsender_list, user=get_sesion_user())
 
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('email', None)
+    return redirect(url_for('signin'))
 
 if __name__ == '__main__':
     app.run(debug=True)
