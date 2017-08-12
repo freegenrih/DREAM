@@ -197,13 +197,23 @@ class IPSenderRegDel:
 
         if re.match('<script', self.name) != None \
                 or len(self.name) > 20 \
+                or re.match(r'<script', self.name) != None \
                 or len(self.name) < 5:
-            name_error = {'name': 'Need Len Name <20 and >5 '}
+            name_error = {'name': 'Name IP i.O no confirm '}
             self.error_ipsender.update(name_error)
 
+
+        if re.match('<script', self.key) != None \
+                or len(self.key) > 20 \
+                or re.match(r'<script', self.key) != None \
+                or len(self.key) < 5:
+            key_error = {'key': 'Key no confirm '}
+            self.error_ipsender.update(key_error)
+
         if re.match('<script', self.password) != None \
-                or len(self.password) > 10 \
-                or len(self.password) < 5:
+                    or len(self.password) > 10 \
+                    or re.match(r'<script', self.password) != None \
+                    or len(self.password) < 5:
             password_error = {'password': 'No confirm password'}
             self.error_ipsender.update(password_error)
 
