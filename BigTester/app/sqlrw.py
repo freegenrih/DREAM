@@ -6,7 +6,7 @@ def list_users():
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
-                                     password='GHRRich',
+                                     password='password',
                                      db='BigTester',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
@@ -27,7 +27,7 @@ def crt_users(username, email, password, statusadmin):
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
-                                     password='GHRRich',
+                                     password='password',
                                      db='BigTester',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
@@ -52,7 +52,7 @@ def get_users(sql, email):
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
-                                     password='GHRRich',
+                                     password='password',
                                      db='BigTester',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
@@ -77,7 +77,7 @@ def up_del_users(sql):
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
-                                     password='GHRRich',
+                                     password='password',
                                      db='BigTester',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
@@ -96,7 +96,7 @@ def get_users_sign_in(sql, password, email):
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
-                                     password='GHRRich',
+                                     password='password',
                                      db='BigTester',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
@@ -122,7 +122,7 @@ def wraper_read(sql):
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
-                                     password='GHRRich',
+                                     password='password',
                                      db='BigTester',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
@@ -142,7 +142,7 @@ def wraper_write(sql):
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
-                                     password='GHRRich',
+                                     password='password',
                                      db='BigTester',
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
