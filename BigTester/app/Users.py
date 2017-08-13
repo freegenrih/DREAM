@@ -7,8 +7,8 @@ from sqlrw import (crt_users,
                    wraper_write,
                    )
 '''
-Need to
-Create validators(user, email, password and ....) instead 
+Need to refactoring
+1)Create validators(user, email, password and ....) instead (if if if if...... in def__init__)
 '''
 
 class RegUsersForm:
@@ -186,7 +186,6 @@ class SignIn:
         '''Validate users Sig IN page'''
         if get_users_sign_in(self.sql, self.password, self.email) == True:
             return True
-
         else:
             False
 
@@ -259,7 +258,7 @@ class IPSenderRegDel:
             self.error_ipsender.update(password_error)
 
     def get_errors_ipsender(self):
-        '''Get full errors IP Sender'''
+        '''Get all errors IP Sender'''
         return self.error_ipsender
 
 

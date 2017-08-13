@@ -7,7 +7,6 @@ from flask import (Flask,
                    redirect
                    )
 
-
 from sqlrw import list_users, wraper_read
 
 from Users import (RegUsersForm,
@@ -17,8 +16,6 @@ from Users import (RegUsersForm,
                    IPSenderRegDel,
                    IPsenderGet
                    )
-
-
 
 app = Flask(__name__)
 
@@ -36,8 +33,8 @@ dates = {
     'CH8': 1212,
 }
 def get_sesion_user():
-    if escape(session['email']):
-        user = escape(session['email'])
+    if escape(session['username']):
+        user = escape(session['username'])
     else:
         user = None
     return user
@@ -48,8 +45,12 @@ def signin():
         signin_form = SignIn(request.form['email'], request.form['password'])
         signin_errors = signin_form.error_signin()
         if signin_form.validate() == True:
-            session['email'] = request.form['email']
-
+            # rfactor code
+            sql="SELECT `username` FROM `Users` WHERE `email`='{}'".format(str(request.form['email']))
+            usrenames =  wraper_read(sql)
+            for name in usrenames:
+                session['username'] = name['username']
+            #
             return render_template("home.html", user=get_sesion_user())
         else:
             return render_template('signin.html', signin_errors=signin_errors)
@@ -123,7 +124,11 @@ def settings_users():
                                     statusadmin
                                     )
             reg_form.write_users()
-            return render_template("settings-users.html", data=list_users(), errors=reg_form.errors(), user=get_sesion_user())
+            return render_template("settings-users.html",
+                                   data=list_users(),
+                                   errors=reg_form.errors(),
+                                   user=get_sesion_user()
+                                   )
 
 
         elif request.form['submit'] == 'DeleteUser' and request.form['email'] != '':
@@ -133,8 +138,11 @@ def settings_users():
                                            request.form['re_password'],
                                            )
                 del_form.delete_users()
-                return render_template("settings-users.html", data=list_users(), errors_delete=del_form.errors_delete(), user=get_sesion_user())
-
+                return render_template("settings-users.html",
+                                       data=list_users(),
+                                       errors_delete=del_form.errors_delete(),
+                                       user=get_sesion_user()
+                                       )
             else:
                 return render_template("settings-users.html", data=list_users(), user=get_sesion_user())
 
@@ -147,7 +155,11 @@ def settings_users():
                                           )
             update_form.update_users()
             errors_edit = update_form.errors_updates()
-            return render_template("settings-users.html", data=list_users(), errors_edit=errors_edit, user=get_sesion_user())
+            return render_template("settings-users.html",
+                                   data=list_users(),
+                                   errors_edit=errors_edit,
+                                   user=get_sesion_user()
+                                   )
 
         else:
             return render_template("settings-users.html", data=list_users(), user=get_sesion_user())
@@ -164,17 +176,22 @@ def settings_ipsenders():
         errors = ipsender.get_errors_ipsender()
         ipsender.create_ipsender()
         ipsender_list = IPsenderGet().list_ipsender()
-
-        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list, user=get_sesion_user())
+        return render_template("settings-ipsender.html",
+                               errors_ipsender=errors,
+                               ipsender_list=ipsender_list,
+                               user=get_sesion_user()
+                               )
 
     if request.method == 'POST' and request.form['submit'] == "Delete IPS":
         ipsender = IPSenderRegDel(request.form['name'], request.form['key'], request.form['password'])
         errors = ipsender.get_errors_ipsender()
         ipsender.delete_ipsender()
         ipsender_list = IPsenderGet().list_ipsender()
-
-        return render_template("settings-ipsender.html", errors_ipsender=errors, ipsender_list=ipsender_list, user=get_sesion_user())
-
+        return render_template("settings-ipsender.html",
+                               errors_ipsender=errors,
+                               ipsender_list=ipsender_list,
+                               user=get_sesion_user()
+                               )
     else:
         ipsender_list = IPsenderGet().list_ipsender()
         return render_template("settings-ipsender.html", ipsender_list=ipsender_list, user=get_sesion_user())
@@ -182,10 +199,9 @@ def settings_ipsenders():
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    session.pop('email', None)
+    session.pop('username', None)
     return redirect(url_for('signin'))
 
-# Errors
 
 
 @app.errorhandler(404)

@@ -1,6 +1,6 @@
 import pymysql.cursors
 '''
-Need to
+Need to refactoring
 1) delete repeat foo()
 2) create file settings connect DB
 '''
