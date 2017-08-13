@@ -1,5 +1,9 @@
 import pymysql.cursors
-
+'''
+Need to
+1) delete repeat foo()
+2) create file settings connect DB
+'''
 
 def list_users():
     '''read all users'''
@@ -12,7 +16,7 @@ def list_users():
                                      cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
-            # Read a single record
+
             sql = "SELECT * FROM `Users` "
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -40,8 +44,6 @@ def crt_users(username, email, password, statusadmin):
 
             print('Create Users')
 
-        # connection is not autocommit by default. So you must commit to save
-        # your changes.
         connection.commit()
     finally:
         connection.close()

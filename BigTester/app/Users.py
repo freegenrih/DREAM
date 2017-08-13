@@ -6,7 +6,10 @@ from sqlrw import (crt_users,
                    wraper_read,
                    wraper_write,
                    )
-
+'''
+Need to
+Create validators(user, email, password and ....) instead 
+'''
 
 class RegUsersForm:
     def __init__(self, email: str, username: str, password: str, re_password: str, statusadmin: int):
@@ -18,6 +21,7 @@ class RegUsersForm:
         self.error_forms = {}
         self.sql = "SELECT `email` FROM `Users` WHERE `email`='{}' ".format(self.email)
 
+        # Need to refactoring
         if self.password != self.re_password \
                 or re.match('<script', self.password) != None \
                 or len(self.password) > 10 \
@@ -25,6 +29,7 @@ class RegUsersForm:
             password_error = {'password': 'No confirm password'}
             self.error_forms.update(password_error)
 
+        # Need to refactoring
         if len(self.username) < 4 \
                 or len(self.username) > 15 \
                 or re.search(r'[!?<:>/]', self.username) != None \
@@ -33,6 +38,7 @@ class RegUsersForm:
                 'username': 'The length of the username must be at least 4 characters and not more than 15'}
             self.error_forms.update(password_error)
 
+        # Need to refactoring
         if len(self.email) > 64 \
                 or self.email.find('@') == -1 \
                 or self.email.find('.') == -1 \
@@ -72,6 +78,7 @@ class UpdateUsersForm:
         self.sql = "UPDATE `Users`SET `password` = '{}' WHERE `Users`.`email` = '{}'" \
             .format(self.new_password, self.email)
 
+        # Need to refactoring
         if self.new_password != self.re_newpassword \
                 or re.match('<script', self.new_password) != None \
                 or re.match('<script', self.re_newpassword) != None \
@@ -80,6 +87,7 @@ class UpdateUsersForm:
             password_error = {'password': 'No confirm password'}
             self.error_updates.update(password_error)
 
+        # Need to refactoring
         if len(self.username) < 4 \
                 or len(self.username) > 15 \
                 or re.search(r'[!?<:>/]', self.username) != None \
@@ -88,6 +96,7 @@ class UpdateUsersForm:
                 'username': 'The length of the username must be at least 4 characters and not more than 15'}
             self.error_updates.update(username_error)
 
+        # Need to refactoring
         if len(self.email) > 64 \
                 or self.email.find('@') == -1 \
                 or self.email.find('.') == -1 \
@@ -119,6 +128,7 @@ class DeleteUsersForm:
         self.error_delete = {}
         self.sql = "DELETE FROM `Users` WHERE `Users`.`email` = '{}'".format(self.email)
 
+        # Need to refactoring
         if len(self.email) > 64 \
                 or self.email.find('@') == -1 \
                 or self.email.find('.') == -1 \
@@ -129,6 +139,7 @@ class DeleteUsersForm:
                 'email': 'No  correct email '}
             self.error_delete.update(email_error)
 
+        # Need to refactoring
         if self.password != self.re_password \
                 or re.match('<script', self.password) != None \
                 or re.match('<script', self.re_password) != None \
@@ -153,6 +164,7 @@ class SignIn:
         self.error_sign_in = {}
         self.sql = "SELECT `password`, `email` FROM `Users` WHERE `email`='{}'".format(self.email)
 
+        # Need to refactoring
         if len(self.email) > 64 \
                 or self.email.find('@') == -1 \
                 or self.email.find('.') == -1 \
@@ -163,6 +175,7 @@ class SignIn:
                 'email': 'No  correct email '}
             self.error_sign_in.update(email_error)
 
+        # Need to refactoring
         if re.match('<script', self.password) != None \
                 or len(self.password) > 10 \
                 or len(self.password) < 5:
@@ -195,6 +208,7 @@ class IPSenderRegDel:
         self.sql_delete = "DELETE FROM `IPSender` WHERE `name_ipsender`='{}' AND `key_ipsender`='{}'" \
             .format(str(self.name), str(self.key))
 
+        # Need to refactoring
         if re.match('<script', self.name) != None \
                 or len(self.name) > 20 \
                 or re.match(r'<script', self.name) != None \
@@ -203,6 +217,7 @@ class IPSenderRegDel:
             self.error_ipsender.update(name_error)
 
 
+        # Need to refactoring
         if re.match('<script', self.key) != None \
                 or len(self.key) > 20 \
                 or re.match(r'<script', self.key) != None \
@@ -210,6 +225,7 @@ class IPSenderRegDel:
             key_error = {'key': 'Key no confirm '}
             self.error_ipsender.update(key_error)
 
+        # Need to refactoring
         if re.match('<script', self.password) != None \
                     or len(self.password) > 10 \
                     or re.match(r'<script', self.password) != None \

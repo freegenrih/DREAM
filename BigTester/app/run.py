@@ -1,10 +1,11 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import session
-from flask import escape
-from flask import url_for
-from flask import redirect
+from flask import (Flask,
+                   render_template,
+                   request,
+                   session,
+                   escape,
+                   url_for,
+                   redirect
+                   )
 
 
 from sqlrw import list_users, wraper_read
@@ -20,6 +21,7 @@ from Users import (RegUsersForm,
 
 
 app = Flask(__name__)
+
 app.secret_key = 'thisIsSecretKey:)'
 
 dates = {
@@ -182,6 +184,13 @@ def settings_ipsenders():
 def logout():
     session.pop('email', None)
     return redirect(url_for('signin'))
+
+# Errors
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

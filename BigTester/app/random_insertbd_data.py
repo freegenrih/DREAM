@@ -5,7 +5,9 @@ import datetime
 
 
 def crt_users():
-    '''create users'''
+    '''
+    create users
+    '''
     try:
         connection = pymysql.connect(host='localhost',
                                      user='root',
