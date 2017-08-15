@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block extralink %}
+
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
 {% endblock extralink %}
 {% block title %}Monitoring{% endblock title %}
 
@@ -14,172 +18,13 @@
 {% endblock centermenuhead %}
 
 {% block centermenu %}
+    <div class="container-fluid" style="min-height: 600px;>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-2">
+                <div id="chartContainer" style="height: 100%; width: 100%;"></div>
+            </div>
+            <div class="col-sm-6">
 
-    <div class="col-xs-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <center>Name IP Sender1 </center>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>CH1</th>
-                        <th>CH2</th>
-                        <th>CH3</th>
-                        <th>CH4</th>
-                        <th>CH5</th>
-                        <th>CH6</th>
-                        <th>CH7</th>
-                        <th>CH8</th>
-                        <th>Data</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% if data %}
-                        <tr>
-                            <th>{{ data.kay }}</th>
-                            <th>{{ data.CH1 }}</th>
-                            <th>{{ data.CH2 }}</th>
-                            <th>{{ data.CH3 }}</th>
-                            <th>{{ data.CH4 }}</th>
-                            <th>{{ data.CH5 }}</th>
-                            <th>{{ data.CH6 }}</th>
-                            <th>{{ data.CH7 }}</th>
-                            <th>{{ data.CH8 }}</th>
-                            <th>20-07-2017</th>
-                        </tr>
-                    {% endif %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <center>Name IP Sender2</center>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>CH1</th>
-                        <th>CH2</th>
-                        <th>CH3</th>
-                        <th>CH4</th>
-                        <th>CH5</th>
-                        <th>CH6</th>
-                        <th>CH7</th>
-                        <th>CH8</th>
-                        <th>Data</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% if data %}
-                        <tr>
-                            <th>{{ data.kay }}</th>
-                            <th>{{ data.CH1 }}</th>
-                            <th>{{ data.CH2 }}</th>
-                            <th>{{ data.CH3 }}</th>
-                            <th>{{ data.CH4 }}</th>
-                            <th>{{ data.CH5 }}</th>
-                            <th>{{ data.CH6 }}</th>
-                            <th>{{ data.CH7 }}</th>
-                            <th>{{ data.CH8 }}</th>
-                            <th>20-07-2017</th>
-                        </tr>
-                    {% endif %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-        <div class="col-xs-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <center>Name IP Sender3</center>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>CH1</th>
-                        <th>CH2</th>
-                        <th>CH3</th>
-                        <th>CH4</th>
-                        <th>CH5</th>
-                        <th>CH6</th>
-                        <th>CH7</th>
-                        <th>CH8</th>
-                        <th>Data</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% if data %}
-                        <tr>
-                            <th>{{ data.kay }}</th>
-                            <th>{{ data.CH1 }}</th>
-                            <th>{{ data.CH2 }}</th>
-                            <th>{{ data.CH3 }}</th>
-                            <th>{{ data.CH4 }}</th>
-                            <th>{{ data.CH5 }}</th>
-                            <th>{{ data.CH6 }}</th>
-                            <th>{{ data.CH7 }}</th>
-                            <th>{{ data.CH8 }}</th>
-                            <th>20-07-2017</th>
-                        </tr>
-                    {% endif %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-        <div class="col-xs-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <center>Name IP Sender4</center>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>CH1</th>
-                        <th>CH2</th>
-                        <th>CH3</th>
-                        <th>CH4</th>
-                        <th>CH5</th>
-                        <th>CH6</th>
-                        <th>CH7</th>
-                        <th>CH8</th>
-                        <th>Data</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% if data %}
-                        <tr>
-                            <th>{{ data.kay }}</th>
-                            <th>{{ data.CH1 }}</th>
-                            <th>{{ data.CH2 }}</th>
-                            <th>{{ data.CH3 }}</th>
-                            <th>{{ data.CH4 }}</th>
-                            <th>{{ data.CH5 }}</th>
-                            <th>{{ data.CH6 }}</th>
-                            <th>{{ data.CH7 }}</th>
-                            <th>{{ data.CH8 }}</th>
-                            <th>20-07-2017</th>
-                        </tr>
-                    {% endif %}
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

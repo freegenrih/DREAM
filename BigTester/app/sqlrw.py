@@ -1,19 +1,17 @@
 import pymysql.cursors
+
+from Settings_app import config_db
 '''
 Need to refactoring
 1) delete repeat foo()
-2) create file settings connect DB
+--OK-- 2) create file settings connect DB 
 '''
+
 
 def list_users():
     '''read all users'''
     try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(**config_db, cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
 
@@ -29,12 +27,7 @@ def list_users():
 def crt_users(username, email, password, statusadmin):
     '''create users'''
     try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(**config_db, cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
             # Create a new record
@@ -52,12 +45,7 @@ def crt_users(username, email, password, statusadmin):
 def get_users(sql, email):
     ''' checked users for email'''
     try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(**config_db, cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
 
@@ -77,12 +65,7 @@ def get_users(sql, email):
 def up_del_users(sql):
     '''update users password and delete users '''
     try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(**config_db, cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
             # Read a single record
@@ -96,12 +79,7 @@ def up_del_users(sql):
 def get_users_sign_in(sql, password, email):
     ''' checked users sign in'''
     try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(**config_db, cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
 
@@ -122,12 +100,7 @@ def get_users_sign_in(sql, password, email):
 def wraper_read(sql):
     ''' wraper  read sql  '''
     try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(**config_db, cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
             # Read a single record
@@ -142,12 +115,7 @@ def wraper_read(sql):
 def wraper_write(sql):
     '''wraper write sql'''
     try:
-        connection = pymysql.connect(host='localhost',
-                                     user='root',
-                                     password='password',
-                                     db='BigTester',
-                                     charset='utf8mb4',
-                                     cursorclass=pymysql.cursors.DictCursor)
+        connection = pymysql.connect(**config_db, cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
             # Create a new record

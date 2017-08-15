@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/css/signin.css" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/signin.css') }}" rel="stylesheet">
     <title>Page Not Found</title>
 </head>
 <body style="background-color: #C2CEEE;">
@@ -17,14 +18,21 @@
                         <center>Systems Control</center>
                     </div>
                     <div class="panel-body">
-                        <div class="alert alert-danger"><center><h3>Page Not Found</h3></center></div>
+                        <div class="alert alert-danger">
+                            <center>
+                            <h3>Page Not Found </h3>
+                            </center>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- url for -->
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
-<script src="static/js/bootstrap.min.js"></script>
+
+
 </body>
 </html>

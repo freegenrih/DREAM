@@ -60,7 +60,7 @@ def signin():
 
 @app.route('/home', methods=['GET'])
 def home():
-    user = escape(session['email'])
+    user = escape(session['username'])
     return render_template('home.html', user=get_sesion_user())
 
 
@@ -206,7 +206,7 @@ def logout():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('404.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="static/css/bootstrap.css" rel="stylesheet">
-    <link href="static/css/body.css" rel="stylesheet">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/body.css') }}">
 
-    {%block extralink%}
-    {%endblock extralink%}
-    <title>{%block title%}{%endblock title%}</title>
+    {% block extralink %}
+    {% endblock extralink %}
+    <title>{% block title %}{% endblock title %}</title>
 
 </head>
 <body>
@@ -22,7 +22,7 @@
                         <li><a href="/home"><span class="glyphicon glyphicon-home"></span></a></li>
                         <li><a href="/monitoring"><span class="glyphicon glyphicon-th-list"></span></a></li>
                         <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-                        <li><a href="{{url_for('logout')}}"><span class="glyphicon glyphicon-random"></span></a></li>
+                        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-random"></span></a></li>
                     </ul>
                 </center>
             </div>
@@ -34,40 +34,40 @@
 <div class="wraper">
     <div class="left-menu">
         <div class="panel panel-primary">
-            <div class="panel-heading">{%block leftmenuhead%}{%endblock leftmenuhead%}</div>
-            <div class="panel-body">{%block leftmenu%}{%endblock leftmenu%}</div>
+            <div class="panel-heading">{% block leftmenuhead %}{% endblock leftmenuhead %}</div>
+            <div class="panel-body">{% block leftmenu %}{% endblock leftmenu %}</div>
         </div>
     </div>
 
     <div class="center-menu">
         <div class="panel panel-primary">
-            <div class="panel-heading">{%block centermenuhead%}{%endblock centermenuhead%}</div>
-            <div class="panel-body">{%block centermenu%}{%endblock centermenu%}</div>
+            <div class="panel-heading">{% block centermenuhead %}{% endblock centermenuhead %}</div>
+            <div class="panel-body">{% block centermenu %}{% endblock centermenu %}</div>
         </div>
     </div>
 
     <div class="right-menu">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                {%block rightmenuhead%}
-                <center>
-                    <div id="clock">
-                        <script src="static/js/time.js"></script>
-                    </div>
-                </center>
+                {% block rightmenuhead %}
+                    <center>
+                        <div id="clock">
+                            <script src="static/js/time.js"></script>
+                        </div>
+                    </center>
 
-                {%endblock rightmenuhead%}
+                {% endblock rightmenuhead %}
             </div>
             <div class="panel-body">
                 <center>
                     <div class="alert alert-info">
-                        {%if user%}
-                        {{user}}
-                        {%endif%}
+                        {% if user %}
+                            {{ user }}
+                        {% endif %}
                     </div>
                 </center>
-                {%block rightmenu%}
-                {%endblock rightmenu%}
+                {% block rightmenu %}
+                {% endblock rightmenu %}
             </div>
         </div>
     </div>
@@ -75,6 +75,77 @@
 </div>
 <footer class="container-fluid text-center"></footer>
 
-<script src="static/js/bootstrap.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+
+        //initial value of dataPoints
+        var dps = [
+            {label: "boiler1", y: 206},
+            {label: "boiler2", y: 163},
+            {label: "boiler3", y: 154},
+            {label: "boiler4", y: 176},
+            {label: "boiler5", y: 184},
+            {label: "boiler6", y: 122}
+        ];
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            title: {
+                text: "Temperature of Each Boiler"
+            },
+            axisY: {
+                suffix: " C"
+            },
+            legend: {
+                verticalAlign: 'bottom',
+                horizontalAlign: "center"
+            },
+            data: [
+                {
+                    type: "column",
+                    bevelEnabled: true,
+                    indexLabel: "{y} C",
+                    dataPoints: dps
+                }
+            ]
+        });
+
+        var updateInterval = 1000;
+
+        var updateChart = function () {
+
+            for (var i = 0; i < dps.length; i++) {
+                // generating random variation deltaY
+                var deltaY = Math.round(2 + Math.random() * (-2 - 2));
+                var yVal = deltaY + dps[i].y > 0 ? dps[i].y + deltaY : 0;
+                var boilerColor;
+
+                // color of dataPoint dependent upon y value.
+
+                boilerColor =
+                    yVal > 200 ? "#FF2500" :
+                    yVal >= 170 ? "#FF6000" :
+                    yVal < 170 ? "#6B8E23 " :
+                    null;
+
+                // updating the dataPoint
+                dps[i] = {label: "boiler" + (i + 1), y: yVal, color: boilerColor};
+
+            };
+
+            chart.render();
+        };
+
+        updateChart();
+
+        // update chart after specified interval
+        setInterval(function () {
+            updateChart()
+        }, updateInterval);
+    }
+</script>
+
 </body>
 </html>
