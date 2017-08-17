@@ -5,3 +5,5 @@ config_db = {
     'db': 'BigTester',
     'charset': 'utf8mb4'
     }
+
+key = 'thisIsSecretKey:)'

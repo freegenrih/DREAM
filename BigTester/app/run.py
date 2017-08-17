@@ -7,8 +7,8 @@ from flask import (Flask,
                    redirect
                    )
 
+from Settings_app import key
 from sqlrw import list_users, wraper_read
-
 from Users import (RegUsersForm,
                    UpdateUsersForm,
                    DeleteUsersForm,
@@ -17,9 +17,10 @@ from Users import (RegUsersForm,
                    IPsenderGet
                    )
 
-app = Flask(__name__)
 
-app.secret_key = 'thisIsSecretKey:)'
+app = Flask(__name__)
+app.secret_key = key
+
 
 dates = {
     'kay': 'secret',
@@ -28,7 +29,7 @@ dates = {
     'CH3': 789,
     'CH4': 1011,
     'CH5': 2343,
-    'CH6': 23123,
+    'CH6': 2312,
     'CH7': 1255,
     'CH8': 1212,
 }

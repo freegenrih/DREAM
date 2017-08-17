@@ -77,75 +77,50 @@
 
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 
-
+{% if data %}
 <script type="text/javascript">
-    window.onload = function () {
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Monotor IPS I.O"
+      },
+      animationEnabled: true,
+      axisY: {
+        title: ""
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      data: [
 
-        //initial value of dataPoints
-        var dps = [
-            {label: "boiler1", y: 206},
-            {label: "boiler2", y: 163},
-            {label: "boiler3", y: 154},
-            {label: "boiler4", y: 176},
-            {label: "boiler5", y: 184},
-            {label: "boiler6", y: 122}
-        ];
+      {
+        type: "column",
+        showInLegend: true,
+        legendMarkerColor: "grey",
+        legendText: " ",
+        dataPoints: [
 
-        var chart = new CanvasJS.Chart("chartContainer", {
-            title: {
-                text: "Temperature of Each Boiler"
-            },
-            axisY: {
-                suffix: " C"
-            },
-            legend: {
-                verticalAlign: 'bottom',
-                horizontalAlign: "center"
-            },
-            data: [
-                {
-                    type: "column",
-                    bevelEnabled: true,
-                    indexLabel: "{y} C",
-                    dataPoints: dps
-                }
-            ]
-        });
+        {y: {{ data.CH1 }},  label: "CH1"},
+        {y: {{ data.CH2 }},  label: "CH2"},
+        {y: {{ data.CH3 }},  label: "CH3"},
+        {y: {{ data.CH4 }},  label: "CH4"},
+        {y: {{ data.CH5 }},  label: "CH4"},
+        {y: {{ data.CH6 }},  label: "CH5"},
+        {y: {{ data.CH7 }},  label: "CH6"},
+        {y: {{ data.CH8 }},  label: "CH7"}
 
-        var updateInterval = 1000;
+        ]
 
-        var updateChart = function () {
+      }
+      ]
+    });
 
-            for (var i = 0; i < dps.length; i++) {
-                // generating random variation deltaY
-                var deltaY = Math.round(2 + Math.random() * (-2 - 2));
-                var yVal = deltaY + dps[i].y > 0 ? dps[i].y + deltaY : 0;
-                var boilerColor;
-
-                // color of dataPoint dependent upon y value.
-
-                boilerColor =
-                    yVal > 200 ? "#FF2500" :
-                    yVal >= 170 ? "#FF6000" :
-                    yVal < 170 ? "#6B8E23 " :
-                    null;
-
-                // updating the dataPoint
-                dps[i] = {label: "boiler" + (i + 1), y: yVal, color: boilerColor};
-
-            };
-
-            chart.render();
-        };
-
-        updateChart();
-
-        // update chart after specified interval
-        setInterval(function () {
-            updateChart()
-        }, updateInterval);
-    }
-</script>
-
+    chart.render();
+  }
+  </script>
+{% endif %}
 </body>
 </html>
