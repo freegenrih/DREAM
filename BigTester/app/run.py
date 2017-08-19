@@ -95,7 +95,6 @@ def monitor():
             'CH6': request.args['ch6'],
             'CH7': request.args['ch7'],
             'CH8': request.args['ch8'],
-
         }
         global dates
         dates = data

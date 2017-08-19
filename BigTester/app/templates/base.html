@@ -19,9 +19,9 @@
             <div class="col-sm-4">
                 <center>
                     <ul class="nav navbar-nav">
-                        <li><a href="/home"><span class="glyphicon glyphicon-home"></span></a></li>
-                        <li><a href="/monitoring"><span class="glyphicon glyphicon-th-list"></span></a></li>
-                        <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+                        <li><a href="{{ url_for('home') }}"><span class="glyphicon glyphicon-home"></span></a></li>
+                        <li><a href="{{ url_for('monitoring') }}"><span class="glyphicon glyphicon-th-list"></span></a></li>
+                        <li><a href="{{ url_for('settings') }}"><span class="glyphicon glyphicon-cog"></span></a></li>
                         <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-random"></span></a></li>
                     </ul>
                 </center>
@@ -35,14 +35,14 @@
     <div class="left-menu">
         <div class="panel panel-primary">
             <div class="panel-heading">{% block leftmenuhead %}{% endblock leftmenuhead %}</div>
-            <div class="panel-body">{% block leftmenu %}{% endblock leftmenu %}</div>
+            <div class="panel-body" style="min-height: 670px;">{% block leftmenu %}{% endblock leftmenu %}</div>
         </div>
     </div>
 
     <div class="center-menu">
         <div class="panel panel-primary">
             <div class="panel-heading">{% block centermenuhead %}{% endblock centermenuhead %}</div>
-            <div class="panel-body">{% block centermenu %}{% endblock centermenu %}</div>
+            <div class="panel-body" style="min-height: 670px;">{% block centermenu %}{% endblock centermenu %}</div>
         </div>
     </div>
 
@@ -52,13 +52,13 @@
                 {% block rightmenuhead %}
                     <center>
                         <div id="clock">
-                            <script src="static/js/time.js"></script>
+                            <script src="{{url_for('static', filename='js/time.js')}}"></script>
                         </div>
                     </center>
 
                 {% endblock rightmenuhead %}
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="min-height: 670px;" >
                 <center>
                     <div class="alert alert-info">
                         {% if user %}
@@ -75,7 +75,6 @@
 </div>
 <footer class="container-fluid text-center"></footer>
 
-<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 
 {% if data %}
 <script type="text/javascript">
@@ -122,5 +121,8 @@
   }
   </script>
 {% endif %}
+
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+
 </body>
 </html>
